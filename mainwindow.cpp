@@ -167,25 +167,70 @@ void MainWindow::updateHost()
         unitList[i] = commList[i]->findChildren<UnitFrame*>();
     }
 
+    //Variables for dynamic updating of authority if the First Command's commander is the General
+    UnitFrame* general;
+    UnitFrame* firstComm;
+    QString firstCommName;
+    int auth;
+    int authToSub = 0;
+
+    //Host Update Main Loop
     for(int i = 0; i < commNum; i++)
     {
+        //Number of Units to Loop through
         int unitNum = unitList[i].size();
+
+        //Unit Loop
         for(int j = 0; j < unitNum; j++)
         {
-            UnitFrame* currUnitFrame = unitList[i][j];
-            QString prefix = currUnitFrame->objectName();
-            QComboBox* unitName = currUnitFrame->findChild<QComboBox*>(prefix + "select");
+
+            UnitFrame* currUnitFrame = unitList[i][j]; //Current Unit
+            QString prefix = currUnitFrame->objectName(); //Prefix of current unit
+            QComboBox* unitName = currUnitFrame->findChild<QComboBox*>(prefix + "select"); //Name of the current unit
+
+            /*
+             * Checks if the current unit is the General; used for First Command = General
+             * If general, save pointer, set auth to General's authority
+             * If first command's commander, save the current unit pointer, and the name of the commander
+             * If not General, check if we're in the first command, and not the commander
+             * If true, subtract the current units authority from the commander/general's authority
+            */
+            if(prefix == "gen_")
+            {
+                general = currUnitFrame;
+                auth = general->findChild<QLineEdit*>("gen_auth")->text().toInt();
+            }
+            else if(prefix == "comm_1_comm_")
+            {
+                firstComm = currUnitFrame;
+                firstCommName = unitName->currentText();
+            }
+            else
+            {
+                if(commList[i]->objectName() == "comm_1" && j > 0)
+                {
+                    QLineEdit* debug = currUnitFrame->findChild<QLineEdit*>(prefix + "auth");
+                    authToSub += debug->text().toInt();
+                }
+            }
+
+            //If a unit has been selected, update the host
             if(unitName->currentText() != "")
             {
+                //Pointer to the size of the unit
                 QSpinBox* sizePoint = currUnitFrame->findChild<QSpinBox*>(prefix + "size");
-
+                //Pointer to the actual unit, not the just the Frame
                 Unit* currUnit = findUnit(unitName->currentText());
 
-
+                //Cost of the unit = cost per unit * size of unit
                 int currCost = sizePoint->value() * currUnit->costPer;
+                //Update the displayed cost for the current Unit Frame
                 currUnitFrame->findChild<QLineEdit*>(prefix + "cost")->setText(QString::number(currCost));
+                //Add the current cost to the total cost of the host
                 cost += currCost;
 
+                //If the current unit is to be counter toward the minimum Ubiquity
+                // update the host's ubiquity counts.
                 if(currUnitFrame->findChild<QCheckBox*>(prefix + "minU")->isChecked())
                 {
                     mnsty += currUnit->ubi->mnsty;
@@ -196,16 +241,13 @@ void MainWindow::updateHost()
                     unique += (currUnit->ubi->unique) ? 1:0;
                 }
             }
-
         }
     }
 
-
-    QComboBox* debug1 = unitList[1][0]->findChild<QComboBox*>("comm_1_comm_select");
-
-    if(debug1->currentText() == "General")
+    if(firstCommName == "General")
     {
-        //unitList[1][0]->findChild<QLineEdit*>("comm_1_comm_auth")->setText(unitList[0][0]->findChild<QLineEdit*>("gen_auth")->text());
+        auth -= authToSub;
+        firstComm->findChild<QLineEdit*>(firstComm->objectName() + "auth")->setText(QString::number(auth));
     }
 
     ui->read_goldCurr->setText(QString::number(cost));
