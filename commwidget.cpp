@@ -2,6 +2,7 @@
 #include "ui_commwidget.h"
 #include "unitframe.h"
 #include <QComboBox>
+#include "dbmanager.h"
 
 CommWidget::CommWidget(QWidget *parent) :
     QWidget(parent),
@@ -45,6 +46,7 @@ CommWidget::CommWidget(bool gen, QString numComm, QWidget *parent) :
     connect(ui->comm_addUnit, SIGNAL(clicked(bool)), this, SLOT(addUnit()));
     connect(ui->comm_remUnit, SIGNAL(clicked(bool)), this, SLOT(removeUnit()));
     connect(newComm, SIGNAL(refresh()), this, SLOT(requestRefreshHost()));
+    connect(newComm, SIGNAL(commandChanged()), this, SLOT(handleCommanderChange()));
 
     ui->comm_layout->addWidget(newComm);
 }
@@ -106,5 +108,51 @@ void CommWidget::removeUnit()
 
 void CommWidget::requestRefreshHost()
 {
+    emit refresh();
+}
+
+void CommWidget::handleCommanderChange()
+{
+    QString frameName = QObject::sender()->objectName();
+
+    int check = frameName.indexOf("gen");
+    if(check == -1)
+    {
+        check = frameName.indexOf("_comm_");
+    }
+
+    if(check != -1)
+    {
+        QComboBox* comm = this->findChild<QComboBox*>(frameName + "select");
+        QString name = comm->currentText();
+        if(name != "General")
+        {
+            for(unsigned int i = 0; i < hostUnits.size(); i++)
+            {
+                if(hostUnits[i]->ubiChanged)
+                {
+                    Ubiquity* toDel = hostUnits[i]->ubi;
+                    hostUnits[i]->ubi = hostUnits[i]->oldUbi;
+                    delete toDel;
+                    hostUnits[i]->ubiChanged = false;
+                }
+            }
+            if(name != "")
+            {
+                Unit* commander = findUnit(name);
+                if(commander->comm)
+                {
+                    std::vector<ubiChange> ubiChanges = db.fetchUbiChange(commander->unitID);
+                    for(unsigned int i = 0; i < ubiChanges.size(); i++)
+                    {
+                        Unit* target = findUnit(ubiChanges[i].targetName);
+                        target->ubi = ubiChanges[i].newUbi;
+                        target->ubiChanged = true;
+                    }
+                }
+            }
+        }
+    }
+
     emit refresh();
 }

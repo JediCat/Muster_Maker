@@ -36,9 +36,13 @@ public:
     int ubiID;
     int auth;
     Ubiquity* ubi;
+    Ubiquity* oldUbi;
+    bool ubiChanged;
 
 };
 
 extern std::vector<Unit*> hostUnits;
+
+Unit* findUnit(QString name);
 
 #endif // UNIT_H

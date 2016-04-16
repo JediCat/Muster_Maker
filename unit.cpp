@@ -19,4 +19,20 @@ Unit::Unit(int unitID2, QString name2, bool comm2, bool gen2, int costPer2, int 
     ubiID = ubiID2;
     auth = auth2;
     ubi = ubi2;
+    oldUbi = ubi2;
+    ubiChanged = false;
+}
+
+Unit* findUnit(QString name)
+{
+    Unit* target;
+    for(unsigned int i = 0; i < hostUnits.size(); i ++)
+    {
+        if(hostUnits[i]->name == name)
+        {
+            target = hostUnits[i];
+        }
+    }
+
+    return target;
 }

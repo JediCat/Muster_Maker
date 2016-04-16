@@ -1,6 +1,7 @@
 #ifndef UBIQUITY_H
 #define UBIQUITY_H
 
+#include <QString>
 
 class Ubiquity
 {
@@ -19,6 +20,12 @@ public:
     int rare;
     int mythic;
     bool unique;
+};
+
+struct ubiChange
+{
+    QString targetName;
+    Ubiquity* newUbi;
 };
 
 #endif // UBIQUITY_H

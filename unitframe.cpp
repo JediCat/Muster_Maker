@@ -136,6 +136,19 @@ void UnitFrame::onUnitSelectChanged()
     }
 
     emit refresh();
+
+    QString frameName = this->objectName();
+
+    int check = frameName.indexOf("gen");
+    if(check == -1)
+    {
+        check = frameName.indexOf("_comm_");
+    }
+
+    if(check != -1)
+    {
+        emit commandChanged();
+    }
 }
 
 void UnitFrame::setFieldEnabled(bool enable)

@@ -25,6 +25,7 @@ private slots:
     void addUnit();
     void removeUnit();
     void requestRefreshHost();
+    void handleCommanderChange();
 
 signals:
     void refresh();

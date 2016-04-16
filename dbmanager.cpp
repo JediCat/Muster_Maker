@@ -202,3 +202,50 @@ Ubiquity* DbManager::fetchUbi(int ubiID2)
 
     return ubi;
 }
+
+std::vector<ubiChange> DbManager::fetchUbiChange(int commID)
+{
+    std::vector<ubiChange> toReturn;
+    QSqlQuery query;
+
+    query.prepare("SELECT newUbi FROM ubiChange WHERE commUnit = (:commID)");
+    query.bindValue(":commID", commID);
+    if(query.exec())
+    {
+        while(query.next())
+        {
+            int ubiID = query.value(0).toInt();
+            ubiChange target;
+            target.newUbi = fetchUbi(ubiID);
+            target.targetName = "";
+            toReturn.insert(toReturn.end(), target);
+        }
+    }
+
+    int i = 0;
+    query.prepare("SELECT targetUnit FROM ubiChange WHERE commUnit = (:commID)");
+    query.bindValue(":commID", commID);
+    if(query.exec())
+    {
+        qDebug() << query.boundValue(0);
+        while(query.next())
+        {
+
+            QSqlQuery query2;
+            query2.prepare("SELECT name FROM units WHERE unitID = (:targetUnit)");
+            int targetUnit = query.value(0).toInt();
+            query2.bindValue(":targetUnit", targetUnit);
+            if(query2.exec())
+            {
+                qDebug() << query2.boundValue(0);
+                while(query2.next())
+                {
+                    toReturn[i].targetName = query2.value(0).toString();
+                    i++;
+                }
+            }
+        }
+    }
+
+    return toReturn;
+}

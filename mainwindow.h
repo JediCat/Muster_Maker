@@ -20,7 +20,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    Unit* findUnit(QString name);
     void updateUbi(int mn, int cm, int unc, int ra, int my, int uq);
 
 private slots:

@@ -12,6 +12,7 @@
 #include "dbmanager.h"
 #include "battlesize.h"
 #include <QComboBox>
+#include <QLineEdit>
 
 
 
@@ -214,6 +215,13 @@ void MainWindow::updateHost()
                 }
             }
 
+            //For dynamic ubiquity
+            if(j > 0 && unitName->currentText() != "")
+            {
+                Unit* unitType = findUnit(unitName->currentText());
+                currUnitFrame->findChild<QLineEdit*>(prefix + "ubi")->setText(currUnitFrame->constructUbi(unitType->ubi));
+            }
+
             //If a unit has been selected, update the host
             if(unitName->currentText() != "")
             {
@@ -255,19 +263,7 @@ void MainWindow::updateHost()
 
 }
 
-Unit* MainWindow::findUnit(QString name)
-{
-    Unit* target;
-    for(int i = 0; i < ERAINN; i ++)
-    {
-        if(hostUnits[i]->name == name)
-        {
-            target = hostUnits[i];
-        }
-    }
 
-    return target;
-}
 
 void MainWindow::updateUbi(int mn, int cm, int unc, int ra, int my, int uq)
 {

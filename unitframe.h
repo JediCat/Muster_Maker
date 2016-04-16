@@ -20,11 +20,11 @@ public:
     explicit UnitFrame(QWidget *parent = 0, bool comm = false);
     ~UnitFrame();
     void changeNames(const QString prefix, const QString number = "");
+    QString constructUbi(const Ubiquity *ubi);
     void enableCheckBoxes();
 
 private:
     Ui::UnitFrame *ui;
-    QString constructUbi(const Ubiquity *ubi);
     void setFieldEnabled(bool enable);
     void blankFields();
 
@@ -35,6 +35,7 @@ private slots:
 
 signals:
     void refresh();
+    void commandChanged();
 
 };
 
