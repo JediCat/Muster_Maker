@@ -15,6 +15,7 @@ class DbManager
 {
 public:
     DbManager(const QString& path);
+    DbManager();
     void selectUnits(std::vector<Unit*>& unitVector, const int KINDRED_CODE);
     Ubiquity *fetchUbi(int ubiID2);
     std::vector<ubiChange> fetchUbiChange(int commID);

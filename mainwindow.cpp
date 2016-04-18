@@ -17,7 +17,9 @@
 
 
 QVector<int> unitsPerTab;
-DbManager db = DbManager("D:\\SQLite\\erainn.db");
+QString pwd("");
+char * PWD;
+DbManager db/* = DbManager("E:\\My Documents\\Qt Projects\\Muster_Maker\\erainn.db")*/;
 std::vector<Unit*> hostUnits;
 int commCount = 49;
 
@@ -25,6 +27,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    PWD = getenv ("PWD");
+    pwd.append(PWD);
+    db = DbManager("E:\\My Documents\\Qt Projects\\Muster_Maker\\erainn.db");
+
     //Qt Setup
     ui->setupUi(this);
 

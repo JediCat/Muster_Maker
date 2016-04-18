@@ -2,6 +2,10 @@
 #include <QStringList>
 #include "ubiquity.h"
 
+DbManager::DbManager()
+{
+
+}
 
 DbManager::DbManager(const QString &path)
 {
@@ -14,7 +18,7 @@ DbManager::DbManager(const QString &path)
     }
     else
     {
-        qDebug() << "Database: connection okay";
+        qDebug() << "Database: connection okay, Path: " << path;
     }
 
 }
@@ -227,7 +231,6 @@ std::vector<ubiChange> DbManager::fetchUbiChange(int commID)
     query.bindValue(":commID", commID);
     if(query.exec())
     {
-        qDebug() << query.boundValue(0);
         while(query.next())
         {
 
@@ -237,7 +240,6 @@ std::vector<ubiChange> DbManager::fetchUbiChange(int commID)
             query2.bindValue(":targetUnit", targetUnit);
             if(query2.exec())
             {
-                qDebug() << query2.boundValue(0);
                 while(query2.next())
                 {
                     toReturn[i].targetName = query2.value(0).toString();

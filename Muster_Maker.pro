@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-QT	 += sql
+QT	     += sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -36,3 +36,5 @@ FORMS    += mainwindow.ui \
     commwidget.ui \
     newmusterdialog.ui \
     unitframe.ui
+
+CONFIG += static
