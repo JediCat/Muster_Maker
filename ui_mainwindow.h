@@ -46,34 +46,40 @@ public:
     QGridLayout *hostDetails_layout;
     QLineEdit *read_goldMin;
     QLabel *la_mainstay;
-    QLineEdit *read_mnstyMax;
     QLineEdit *read_mnstyMin;
     QLabel *la_battleSize;
     QLabel *la_common;
     QLineEdit *read_cmmnCurr;
-    QLineEdit *read_mythicMax;
     QLineEdit *read_mnstyCurr;
     QLineEdit *read_cmmnMin;
-    QLineEdit *read_cmmnMax;
     QLineEdit *read_uniqueCurr;
     QLabel *la_uncommon;
     QLineEdit *read_uncmmnCurr;
     QLineEdit *read_mythicCurr;
     QLabel *la_rare;
     QLineEdit *read_uncmmnMin;
-    QLineEdit *read_uncmmnMax;
     QLabel *la_mythic;
     QLineEdit *read_rareCurr;
     QLineEdit *read_rareMin;
-    QLineEdit *read_rareMax;
     QLabel *la_unique;
     QLineEdit *read_mythicMin;
     QLineEdit *read_uniqueMin;
     QComboBox *batSizeSlct;
-    QLineEdit *read_uniqueMax;
     QLabel *la_gold;
     QLineEdit *read_goldCurr;
     QLineEdit *read_goldMax;
+    QLineEdit *read_rareMax;
+    QLineEdit *read_rareTotal;
+    QLineEdit *read_uncmmnTotal;
+    QLineEdit *read_cmmnTotal;
+    QLineEdit *read_mythicTotal;
+    QLineEdit *read_cmmnMax;
+    QLineEdit *read_mnstyMax;
+    QLineEdit *read_mnstyTotal;
+    QLineEdit *read_uncmmnMax;
+    QLineEdit *read_mythicMax;
+    QLineEdit *read_uniqueMax;
+    QLineEdit *read_uniqueTotal;
     QTabWidget *tabWidget;
     QWidget *hostOptions;
     QWidget *hostInvoc;
@@ -147,16 +153,6 @@ public:
 
         hostDetails_layout->addWidget(la_mainstay, 0, 5, 2, 1);
 
-        read_mnstyMax = new QLineEdit(hostDetails_widget);
-        read_mnstyMax->setObjectName(QStringLiteral("read_mnstyMax"));
-        sizePolicy.setHeightForWidth(read_mnstyMax->sizePolicy().hasHeightForWidth());
-        read_mnstyMax->setSizePolicy(sizePolicy);
-        read_mnstyMax->setMaximumSize(QSize(25, 16777215));
-        read_mnstyMax->setAlignment(Qt::AlignCenter);
-        read_mnstyMax->setReadOnly(true);
-
-        hostDetails_layout->addWidget(read_mnstyMax, 0, 7, 2, 1);
-
         read_mnstyMin = new QLineEdit(hostDetails_widget);
         read_mnstyMin->setObjectName(QStringLiteral("read_mnstyMin"));
         sizePolicy.setHeightForWidth(read_mnstyMin->sizePolicy().hasHeightForWidth());
@@ -181,7 +177,7 @@ public:
         sizePolicy1.setHeightForWidth(la_common->sizePolicy().hasHeightForWidth());
         la_common->setSizePolicy(sizePolicy1);
 
-        hostDetails_layout->addWidget(la_common, 0, 8, 2, 1);
+        hostDetails_layout->addWidget(la_common, 0, 9, 2, 1);
 
         read_cmmnCurr = new QLineEdit(hostDetails_widget);
         read_cmmnCurr->setObjectName(QStringLiteral("read_cmmnCurr"));
@@ -191,17 +187,7 @@ public:
         read_cmmnCurr->setAlignment(Qt::AlignCenter);
         read_cmmnCurr->setReadOnly(true);
 
-        hostDetails_layout->addWidget(read_cmmnCurr, 0, 9, 1, 1);
-
-        read_mythicMax = new QLineEdit(hostDetails_widget);
-        read_mythicMax->setObjectName(QStringLiteral("read_mythicMax"));
-        sizePolicy.setHeightForWidth(read_mythicMax->sizePolicy().hasHeightForWidth());
-        read_mythicMax->setSizePolicy(sizePolicy);
-        read_mythicMax->setMaximumSize(QSize(25, 16777215));
-        read_mythicMax->setAlignment(Qt::AlignCenter);
-        read_mythicMax->setReadOnly(true);
-
-        hostDetails_layout->addWidget(read_mythicMax, 0, 19, 2, 1);
+        hostDetails_layout->addWidget(read_cmmnCurr, 0, 10, 1, 1);
 
         read_mnstyCurr = new QLineEdit(hostDetails_widget);
         read_mnstyCurr->setObjectName(QStringLiteral("read_mnstyCurr"));
@@ -221,17 +207,7 @@ public:
         read_cmmnMin->setAlignment(Qt::AlignCenter);
         read_cmmnMin->setReadOnly(true);
 
-        hostDetails_layout->addWidget(read_cmmnMin, 1, 9, 1, 1);
-
-        read_cmmnMax = new QLineEdit(hostDetails_widget);
-        read_cmmnMax->setObjectName(QStringLiteral("read_cmmnMax"));
-        sizePolicy.setHeightForWidth(read_cmmnMax->sizePolicy().hasHeightForWidth());
-        read_cmmnMax->setSizePolicy(sizePolicy);
-        read_cmmnMax->setMaximumSize(QSize(25, 16777215));
-        read_cmmnMax->setAlignment(Qt::AlignCenter);
-        read_cmmnMax->setReadOnly(true);
-
-        hostDetails_layout->addWidget(read_cmmnMax, 0, 10, 2, 1);
+        hostDetails_layout->addWidget(read_cmmnMin, 1, 10, 1, 1);
 
         read_uniqueCurr = new QLineEdit(hostDetails_widget);
         read_uniqueCurr->setObjectName(QStringLiteral("read_uniqueCurr"));
@@ -241,14 +217,14 @@ public:
         read_uniqueCurr->setAlignment(Qt::AlignCenter);
         read_uniqueCurr->setReadOnly(true);
 
-        hostDetails_layout->addWidget(read_uniqueCurr, 0, 21, 1, 1);
+        hostDetails_layout->addWidget(read_uniqueCurr, 0, 26, 1, 1);
 
         la_uncommon = new QLabel(hostDetails_widget);
         la_uncommon->setObjectName(QStringLiteral("la_uncommon"));
         sizePolicy1.setHeightForWidth(la_uncommon->sizePolicy().hasHeightForWidth());
         la_uncommon->setSizePolicy(sizePolicy1);
 
-        hostDetails_layout->addWidget(la_uncommon, 0, 11, 2, 1);
+        hostDetails_layout->addWidget(la_uncommon, 0, 13, 2, 1);
 
         read_uncmmnCurr = new QLineEdit(hostDetails_widget);
         read_uncmmnCurr->setObjectName(QStringLiteral("read_uncmmnCurr"));
@@ -258,7 +234,7 @@ public:
         read_uncmmnCurr->setAlignment(Qt::AlignCenter);
         read_uncmmnCurr->setReadOnly(true);
 
-        hostDetails_layout->addWidget(read_uncmmnCurr, 0, 12, 1, 1);
+        hostDetails_layout->addWidget(read_uncmmnCurr, 0, 14, 1, 1);
 
         read_mythicCurr = new QLineEdit(hostDetails_widget);
         read_mythicCurr->setObjectName(QStringLiteral("read_mythicCurr"));
@@ -268,14 +244,14 @@ public:
         read_mythicCurr->setAlignment(Qt::AlignCenter);
         read_mythicCurr->setReadOnly(true);
 
-        hostDetails_layout->addWidget(read_mythicCurr, 0, 18, 1, 1);
+        hostDetails_layout->addWidget(read_mythicCurr, 0, 22, 1, 1);
 
         la_rare = new QLabel(hostDetails_widget);
         la_rare->setObjectName(QStringLiteral("la_rare"));
         sizePolicy1.setHeightForWidth(la_rare->sizePolicy().hasHeightForWidth());
         la_rare->setSizePolicy(sizePolicy1);
 
-        hostDetails_layout->addWidget(la_rare, 0, 14, 2, 1);
+        hostDetails_layout->addWidget(la_rare, 0, 17, 2, 1);
 
         read_uncmmnMin = new QLineEdit(hostDetails_widget);
         read_uncmmnMin->setObjectName(QStringLiteral("read_uncmmnMin"));
@@ -285,24 +261,14 @@ public:
         read_uncmmnMin->setAlignment(Qt::AlignCenter);
         read_uncmmnMin->setReadOnly(true);
 
-        hostDetails_layout->addWidget(read_uncmmnMin, 1, 12, 1, 1);
-
-        read_uncmmnMax = new QLineEdit(hostDetails_widget);
-        read_uncmmnMax->setObjectName(QStringLiteral("read_uncmmnMax"));
-        sizePolicy.setHeightForWidth(read_uncmmnMax->sizePolicy().hasHeightForWidth());
-        read_uncmmnMax->setSizePolicy(sizePolicy);
-        read_uncmmnMax->setMaximumSize(QSize(25, 16777215));
-        read_uncmmnMax->setAlignment(Qt::AlignCenter);
-        read_uncmmnMax->setReadOnly(true);
-
-        hostDetails_layout->addWidget(read_uncmmnMax, 0, 13, 2, 1);
+        hostDetails_layout->addWidget(read_uncmmnMin, 1, 14, 1, 1);
 
         la_mythic = new QLabel(hostDetails_widget);
         la_mythic->setObjectName(QStringLiteral("la_mythic"));
         sizePolicy1.setHeightForWidth(la_mythic->sizePolicy().hasHeightForWidth());
         la_mythic->setSizePolicy(sizePolicy1);
 
-        hostDetails_layout->addWidget(la_mythic, 0, 17, 2, 1);
+        hostDetails_layout->addWidget(la_mythic, 0, 21, 2, 1);
 
         read_rareCurr = new QLineEdit(hostDetails_widget);
         read_rareCurr->setObjectName(QStringLiteral("read_rareCurr"));
@@ -312,7 +278,7 @@ public:
         read_rareCurr->setAlignment(Qt::AlignCenter);
         read_rareCurr->setReadOnly(true);
 
-        hostDetails_layout->addWidget(read_rareCurr, 0, 15, 1, 1);
+        hostDetails_layout->addWidget(read_rareCurr, 0, 18, 1, 1);
 
         read_rareMin = new QLineEdit(hostDetails_widget);
         read_rareMin->setObjectName(QStringLiteral("read_rareMin"));
@@ -322,24 +288,14 @@ public:
         read_rareMin->setAlignment(Qt::AlignCenter);
         read_rareMin->setReadOnly(true);
 
-        hostDetails_layout->addWidget(read_rareMin, 1, 15, 1, 1);
-
-        read_rareMax = new QLineEdit(hostDetails_widget);
-        read_rareMax->setObjectName(QStringLiteral("read_rareMax"));
-        sizePolicy.setHeightForWidth(read_rareMax->sizePolicy().hasHeightForWidth());
-        read_rareMax->setSizePolicy(sizePolicy);
-        read_rareMax->setMaximumSize(QSize(25, 16777215));
-        read_rareMax->setAlignment(Qt::AlignCenter);
-        read_rareMax->setReadOnly(true);
-
-        hostDetails_layout->addWidget(read_rareMax, 0, 16, 2, 1);
+        hostDetails_layout->addWidget(read_rareMin, 1, 18, 1, 1);
 
         la_unique = new QLabel(hostDetails_widget);
         la_unique->setObjectName(QStringLiteral("la_unique"));
         sizePolicy1.setHeightForWidth(la_unique->sizePolicy().hasHeightForWidth());
         la_unique->setSizePolicy(sizePolicy1);
 
-        hostDetails_layout->addWidget(la_unique, 0, 20, 2, 1);
+        hostDetails_layout->addWidget(la_unique, 0, 25, 2, 1);
 
         read_mythicMin = new QLineEdit(hostDetails_widget);
         read_mythicMin->setObjectName(QStringLiteral("read_mythicMin"));
@@ -349,7 +305,7 @@ public:
         read_mythicMin->setAlignment(Qt::AlignCenter);
         read_mythicMin->setReadOnly(true);
 
-        hostDetails_layout->addWidget(read_mythicMin, 1, 18, 1, 1);
+        hostDetails_layout->addWidget(read_mythicMin, 1, 22, 1, 1);
 
         read_uniqueMin = new QLineEdit(hostDetails_widget);
         read_uniqueMin->setObjectName(QStringLiteral("read_uniqueMin"));
@@ -359,7 +315,7 @@ public:
         read_uniqueMin->setAlignment(Qt::AlignCenter);
         read_uniqueMin->setReadOnly(true);
 
-        hostDetails_layout->addWidget(read_uniqueMin, 1, 21, 1, 1);
+        hostDetails_layout->addWidget(read_uniqueMin, 1, 26, 1, 1);
 
         batSizeSlct = new QComboBox(hostDetails_widget);
         batSizeSlct->setObjectName(QStringLiteral("batSizeSlct"));
@@ -368,16 +324,6 @@ public:
         batSizeSlct->setMinimumSize(QSize(150, 0));
 
         hostDetails_layout->addWidget(batSizeSlct, 1, 0, 1, 1);
-
-        read_uniqueMax = new QLineEdit(hostDetails_widget);
-        read_uniqueMax->setObjectName(QStringLiteral("read_uniqueMax"));
-        sizePolicy.setHeightForWidth(read_uniqueMax->sizePolicy().hasHeightForWidth());
-        read_uniqueMax->setSizePolicy(sizePolicy);
-        read_uniqueMax->setMaximumSize(QSize(25, 16777215));
-        read_uniqueMax->setAlignment(Qt::AlignCenter);
-        read_uniqueMax->setReadOnly(true);
-
-        hostDetails_layout->addWidget(read_uniqueMax, 0, 22, 2, 1);
 
         la_gold = new QLabel(hostDetails_widget);
         la_gold->setObjectName(QStringLiteral("la_gold"));
@@ -408,36 +354,162 @@ public:
 
         hostDetails_layout->addWidget(read_goldMax, 0, 4, 2, 1);
 
+        read_rareMax = new QLineEdit(hostDetails_widget);
+        read_rareMax->setObjectName(QStringLiteral("read_rareMax"));
+        sizePolicy.setHeightForWidth(read_rareMax->sizePolicy().hasHeightForWidth());
+        read_rareMax->setSizePolicy(sizePolicy);
+        read_rareMax->setMaximumSize(QSize(25, 16777215));
+        read_rareMax->setAlignment(Qt::AlignCenter);
+        read_rareMax->setReadOnly(true);
+
+        hostDetails_layout->addWidget(read_rareMax, 1, 19, 1, 1);
+
+        read_rareTotal = new QLineEdit(hostDetails_widget);
+        read_rareTotal->setObjectName(QStringLiteral("read_rareTotal"));
+        sizePolicy.setHeightForWidth(read_rareTotal->sizePolicy().hasHeightForWidth());
+        read_rareTotal->setSizePolicy(sizePolicy);
+        read_rareTotal->setMaximumSize(QSize(25, 16777215));
+        read_rareTotal->setAlignment(Qt::AlignCenter);
+        read_rareTotal->setReadOnly(true);
+
+        hostDetails_layout->addWidget(read_rareTotal, 0, 19, 1, 1);
+
+        read_uncmmnTotal = new QLineEdit(hostDetails_widget);
+        read_uncmmnTotal->setObjectName(QStringLiteral("read_uncmmnTotal"));
+        sizePolicy.setHeightForWidth(read_uncmmnTotal->sizePolicy().hasHeightForWidth());
+        read_uncmmnTotal->setSizePolicy(sizePolicy);
+        read_uncmmnTotal->setMaximumSize(QSize(25, 16777215));
+        read_uncmmnTotal->setAlignment(Qt::AlignCenter);
+        read_uncmmnTotal->setReadOnly(true);
+
+        hostDetails_layout->addWidget(read_uncmmnTotal, 0, 15, 1, 1);
+
+        read_cmmnTotal = new QLineEdit(hostDetails_widget);
+        read_cmmnTotal->setObjectName(QStringLiteral("read_cmmnTotal"));
+        sizePolicy.setHeightForWidth(read_cmmnTotal->sizePolicy().hasHeightForWidth());
+        read_cmmnTotal->setSizePolicy(sizePolicy);
+        read_cmmnTotal->setMaximumSize(QSize(25, 16777215));
+        read_cmmnTotal->setAlignment(Qt::AlignCenter);
+        read_cmmnTotal->setReadOnly(true);
+
+        hostDetails_layout->addWidget(read_cmmnTotal, 0, 11, 1, 1);
+
+        read_mythicTotal = new QLineEdit(hostDetails_widget);
+        read_mythicTotal->setObjectName(QStringLiteral("read_mythicTotal"));
+        sizePolicy.setHeightForWidth(read_mythicTotal->sizePolicy().hasHeightForWidth());
+        read_mythicTotal->setSizePolicy(sizePolicy);
+        read_mythicTotal->setMaximumSize(QSize(25, 16777215));
+        read_mythicTotal->setAlignment(Qt::AlignCenter);
+        read_mythicTotal->setReadOnly(true);
+
+        hostDetails_layout->addWidget(read_mythicTotal, 0, 23, 1, 1);
+
+        read_cmmnMax = new QLineEdit(hostDetails_widget);
+        read_cmmnMax->setObjectName(QStringLiteral("read_cmmnMax"));
+        sizePolicy.setHeightForWidth(read_cmmnMax->sizePolicy().hasHeightForWidth());
+        read_cmmnMax->setSizePolicy(sizePolicy);
+        read_cmmnMax->setMaximumSize(QSize(25, 16777215));
+        read_cmmnMax->setAlignment(Qt::AlignCenter);
+        read_cmmnMax->setReadOnly(true);
+
+        hostDetails_layout->addWidget(read_cmmnMax, 1, 11, 1, 1);
+
+        read_mnstyMax = new QLineEdit(hostDetails_widget);
+        read_mnstyMax->setObjectName(QStringLiteral("read_mnstyMax"));
+        sizePolicy.setHeightForWidth(read_mnstyMax->sizePolicy().hasHeightForWidth());
+        read_mnstyMax->setSizePolicy(sizePolicy);
+        read_mnstyMax->setMaximumSize(QSize(25, 16777215));
+        read_mnstyMax->setAlignment(Qt::AlignCenter);
+        read_mnstyMax->setReadOnly(true);
+
+        hostDetails_layout->addWidget(read_mnstyMax, 1, 7, 1, 1);
+
+        read_mnstyTotal = new QLineEdit(hostDetails_widget);
+        read_mnstyTotal->setObjectName(QStringLiteral("read_mnstyTotal"));
+        sizePolicy.setHeightForWidth(read_mnstyTotal->sizePolicy().hasHeightForWidth());
+        read_mnstyTotal->setSizePolicy(sizePolicy);
+        read_mnstyTotal->setMaximumSize(QSize(25, 16777215));
+        read_mnstyTotal->setAlignment(Qt::AlignCenter);
+        read_mnstyTotal->setReadOnly(true);
+
+        hostDetails_layout->addWidget(read_mnstyTotal, 0, 7, 1, 1);
+
+        read_uncmmnMax = new QLineEdit(hostDetails_widget);
+        read_uncmmnMax->setObjectName(QStringLiteral("read_uncmmnMax"));
+        sizePolicy.setHeightForWidth(read_uncmmnMax->sizePolicy().hasHeightForWidth());
+        read_uncmmnMax->setSizePolicy(sizePolicy);
+        read_uncmmnMax->setMaximumSize(QSize(25, 16777215));
+        read_uncmmnMax->setAlignment(Qt::AlignCenter);
+        read_uncmmnMax->setReadOnly(true);
+
+        hostDetails_layout->addWidget(read_uncmmnMax, 1, 15, 1, 1);
+
+        read_mythicMax = new QLineEdit(hostDetails_widget);
+        read_mythicMax->setObjectName(QStringLiteral("read_mythicMax"));
+        sizePolicy.setHeightForWidth(read_mythicMax->sizePolicy().hasHeightForWidth());
+        read_mythicMax->setSizePolicy(sizePolicy);
+        read_mythicMax->setMaximumSize(QSize(25, 16777215));
+        read_mythicMax->setAlignment(Qt::AlignCenter);
+        read_mythicMax->setReadOnly(true);
+
+        hostDetails_layout->addWidget(read_mythicMax, 1, 23, 1, 1);
+
+        read_uniqueMax = new QLineEdit(hostDetails_widget);
+        read_uniqueMax->setObjectName(QStringLiteral("read_uniqueMax"));
+        sizePolicy.setHeightForWidth(read_uniqueMax->sizePolicy().hasHeightForWidth());
+        read_uniqueMax->setSizePolicy(sizePolicy);
+        read_uniqueMax->setMaximumSize(QSize(25, 16777215));
+        read_uniqueMax->setAlignment(Qt::AlignCenter);
+        read_uniqueMax->setReadOnly(true);
+
+        hostDetails_layout->addWidget(read_uniqueMax, 1, 27, 1, 1);
+
+        read_uniqueTotal = new QLineEdit(hostDetails_widget);
+        read_uniqueTotal->setObjectName(QStringLiteral("read_uniqueTotal"));
+        sizePolicy.setHeightForWidth(read_uniqueTotal->sizePolicy().hasHeightForWidth());
+        read_uniqueTotal->setSizePolicy(sizePolicy);
+        read_uniqueTotal->setMaximumSize(QSize(25, 16777215));
+        read_uniqueTotal->setAlignment(Qt::AlignCenter);
+        read_uniqueTotal->setReadOnly(true);
+
+        hostDetails_layout->addWidget(read_uniqueTotal, 0, 27, 1, 1);
+
         la_battleSize->raise();
         batSizeSlct->raise();
         read_goldMin->raise();
         la_mainstay->raise();
         read_mnstyCurr->raise();
         read_mnstyMin->raise();
-        read_mnstyMax->raise();
         la_common->raise();
         read_cmmnCurr->raise();
         read_cmmnMin->raise();
-        read_cmmnMax->raise();
         la_uncommon->raise();
         read_uncmmnCurr->raise();
         read_uncmmnMin->raise();
-        read_uncmmnMax->raise();
         la_rare->raise();
         read_rareCurr->raise();
         read_rareMin->raise();
-        read_rareMax->raise();
         la_mythic->raise();
         read_mythicCurr->raise();
         read_mythicMin->raise();
-        read_mythicMax->raise();
         la_unique->raise();
         read_uniqueCurr->raise();
         read_uniqueMin->raise();
-        read_uniqueMax->raise();
         la_gold->raise();
         read_goldCurr->raise();
         read_goldMax->raise();
+        read_mnstyMax->raise();
+        read_mnstyTotal->raise();
+        read_cmmnMax->raise();
+        read_cmmnTotal->raise();
+        read_uncmmnMax->raise();
+        read_uncmmnTotal->raise();
+        read_rareMax->raise();
+        read_rareTotal->raise();
+        read_mythicMax->raise();
+        read_mythicTotal->raise();
+        read_uniqueMax->raise();
+        read_uniqueTotal->raise();
 
         gridLayout->addWidget(hostDetails_widget, 1, 0, 1, 1);
 
@@ -524,6 +596,12 @@ public:
         la_unique->setText(QApplication::translate("MainWindow", "Unique", 0));
         la_gold->setText(QApplication::translate("MainWindow", "Gold", 0));
         read_goldCurr->setText(QApplication::translate("MainWindow", "0", 0));
+        read_rareTotal->setText(QApplication::translate("MainWindow", "0", 0));
+        read_uncmmnTotal->setText(QApplication::translate("MainWindow", "0", 0));
+        read_cmmnTotal->setText(QApplication::translate("MainWindow", "0", 0));
+        read_mythicTotal->setText(QApplication::translate("MainWindow", "0", 0));
+        read_mnstyTotal->setText(QApplication::translate("MainWindow", "0", 0));
+        read_uniqueTotal->setText(QApplication::translate("MainWindow", "0", 0));
         tabWidget->setTabText(tabWidget->indexOf(hostOptions), QApplication::translate("MainWindow", "Unit Options", 0));
         tabWidget->setTabText(tabWidget->indexOf(hostInvoc), QApplication::translate("MainWindow", "Invocations", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));

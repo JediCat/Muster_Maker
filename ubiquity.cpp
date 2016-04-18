@@ -2,7 +2,12 @@
 
 Ubiquity::Ubiquity()
 {
-
+    mnsty =0;
+    cmmn = 0;
+    uncmmn = 0;
+    rare = 0;
+    mythic = 0;
+    unique = 0;
 }
 
 Ubiquity::Ubiquity(int mnsty2,
@@ -18,4 +23,9 @@ Ubiquity::Ubiquity(int mnsty2,
     rare = rare2;
     mythic = mythic2;
     unique = unique2;
+}
+
+Ubiquity::~Ubiquity()
+{
+
 }

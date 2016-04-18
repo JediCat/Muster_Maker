@@ -5,6 +5,7 @@
 
 class Unit;
 class QString;
+class Ubiquity;
 
 namespace Ui {
 class MainWindow;
@@ -20,7 +21,9 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    void updateUbi(int mn, int cm, int unc, int ra, int my, int uq);
+    void updateUbiMins(Ubiquity newUbi);
+    void updateUbiTotals(Ubiquity newUbi);
+    void increaseUbi(Ubiquity* toMod, int mnsty, int cmmn, int uncmmn, int rare, int mythic, int unique);
 
 private slots:
     void addCommand();

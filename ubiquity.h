@@ -13,6 +13,7 @@ public:
                 int rare2,
                 int mythic2,
                 bool unique2);
+    ~Ubiquity();
 
     int mnsty;
     int cmmn;

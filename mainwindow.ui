@@ -77,28 +77,6 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="7" rowspan="2">
-        <widget class="QLineEdit" name="read_mnstyMax">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>25</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="6">
         <widget class="QLineEdit" name="read_mnstyMin">
          <property name="sizePolicy">
@@ -136,7 +114,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="8" rowspan="2">
+       <item row="0" column="9" rowspan="2">
         <widget class="QLabel" name="la_common">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -149,7 +127,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="9">
+       <item row="0" column="10">
         <widget class="QLineEdit" name="read_cmmnCurr">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -165,28 +143,6 @@
          </property>
          <property name="text">
           <string>0</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="19" rowspan="2">
-        <widget class="QLineEdit" name="read_mythicMax">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>25</width>
-           <height>16777215</height>
-          </size>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -221,7 +177,7 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="9">
+       <item row="1" column="10">
         <widget class="QLineEdit" name="read_cmmnMin">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -243,29 +199,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="10" rowspan="2">
-        <widget class="QLineEdit" name="read_cmmnMax">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>25</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="21">
+       <item row="0" column="26">
         <widget class="QLineEdit" name="read_uniqueCurr">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -290,7 +224,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="11" rowspan="2">
+       <item row="0" column="13" rowspan="2">
         <widget class="QLabel" name="la_uncommon">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -303,7 +237,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="12">
+       <item row="0" column="14">
         <widget class="QLineEdit" name="read_uncmmnCurr">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -328,7 +262,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="18">
+       <item row="0" column="22">
         <widget class="QLineEdit" name="read_mythicCurr">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -353,7 +287,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="14" rowspan="2">
+       <item row="0" column="17" rowspan="2">
         <widget class="QLabel" name="la_rare">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -366,7 +300,7 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="12">
+       <item row="1" column="14">
         <widget class="QLineEdit" name="read_uncmmnMin">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -388,29 +322,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="13" rowspan="2">
-        <widget class="QLineEdit" name="read_uncmmnMax">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>25</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="17" rowspan="2">
+       <item row="0" column="21" rowspan="2">
         <widget class="QLabel" name="la_mythic">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -423,7 +335,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="15">
+       <item row="0" column="18">
         <widget class="QLineEdit" name="read_rareCurr">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -448,7 +360,7 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="15">
+       <item row="1" column="18">
         <widget class="QLineEdit" name="read_rareMin">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -470,29 +382,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="16" rowspan="2">
-        <widget class="QLineEdit" name="read_rareMax">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>25</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="20" rowspan="2">
+       <item row="0" column="25" rowspan="2">
         <widget class="QLabel" name="la_unique">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -505,7 +395,7 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="18">
+       <item row="1" column="22">
         <widget class="QLineEdit" name="read_mythicMin">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -527,7 +417,7 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="21">
+       <item row="1" column="26">
         <widget class="QLineEdit" name="read_uniqueMin">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -562,28 +452,6 @@
            <width>150</width>
            <height>0</height>
           </size>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="22" rowspan="2">
-        <widget class="QLineEdit" name="read_uniqueMax">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>25</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="readOnly">
-          <bool>true</bool>
          </property>
         </widget>
        </item>
@@ -655,6 +523,288 @@
          </property>
         </widget>
        </item>
+       <item row="1" column="19">
+        <widget class="QLineEdit" name="read_rareMax">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="19">
+        <widget class="QLineEdit" name="read_rareTotal">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="15">
+        <widget class="QLineEdit" name="read_uncmmnTotal">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="11">
+        <widget class="QLineEdit" name="read_cmmnTotal">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="23">
+        <widget class="QLineEdit" name="read_mythicTotal">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="11">
+        <widget class="QLineEdit" name="read_cmmnMax">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="7">
+        <widget class="QLineEdit" name="read_mnstyMax">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="7">
+        <widget class="QLineEdit" name="read_mnstyTotal">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="15">
+        <widget class="QLineEdit" name="read_uncmmnMax">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="23">
+        <widget class="QLineEdit" name="read_mythicMax">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="27">
+        <widget class="QLineEdit" name="read_uniqueMax">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="27">
+        <widget class="QLineEdit" name="read_uniqueTotal">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>25</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
       </layout>
       <zorder>la_battleSize</zorder>
       <zorder>batSizeSlct</zorder>
@@ -662,30 +812,36 @@
       <zorder>la_mainstay</zorder>
       <zorder>read_mnstyCurr</zorder>
       <zorder>read_mnstyMin</zorder>
-      <zorder>read_mnstyMax</zorder>
       <zorder>la_common</zorder>
       <zorder>read_cmmnCurr</zorder>
       <zorder>read_cmmnMin</zorder>
-      <zorder>read_cmmnMax</zorder>
       <zorder>la_uncommon</zorder>
       <zorder>read_uncmmnCurr</zorder>
       <zorder>read_uncmmnMin</zorder>
-      <zorder>read_uncmmnMax</zorder>
       <zorder>la_rare</zorder>
       <zorder>read_rareCurr</zorder>
       <zorder>read_rareMin</zorder>
-      <zorder>read_rareMax</zorder>
       <zorder>la_mythic</zorder>
       <zorder>read_mythicCurr</zorder>
       <zorder>read_mythicMin</zorder>
-      <zorder>read_mythicMax</zorder>
       <zorder>la_unique</zorder>
       <zorder>read_uniqueCurr</zorder>
       <zorder>read_uniqueMin</zorder>
-      <zorder>read_uniqueMax</zorder>
       <zorder>la_gold</zorder>
       <zorder>read_goldCurr</zorder>
       <zorder>read_goldMax</zorder>
+      <zorder>read_mnstyMax</zorder>
+      <zorder>read_mnstyTotal</zorder>
+      <zorder>read_cmmnMax</zorder>
+      <zorder>read_cmmnTotal</zorder>
+      <zorder>read_uncmmnMax</zorder>
+      <zorder>read_uncmmnTotal</zorder>
+      <zorder>read_rareMax</zorder>
+      <zorder>read_rareTotal</zorder>
+      <zorder>read_mythicMax</zorder>
+      <zorder>read_mythicTotal</zorder>
+      <zorder>read_uniqueMax</zorder>
+      <zorder>read_uniqueTotal</zorder>
      </widget>
     </item>
     <item row="0" column="0">

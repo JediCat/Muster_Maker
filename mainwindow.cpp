@@ -13,13 +13,13 @@
 #include "battlesize.h"
 #include <QComboBox>
 #include <QLineEdit>
+#include "ubiquity.h"
 
 
 
 QVector<int> unitsPerTab;
-QString pwd("");
-char * PWD;
-DbManager db/* = DbManager("E:\\My Documents\\Qt Projects\\Muster_Maker\\erainn.db")*/;
+
+DbManager db;
 std::vector<Unit*> hostUnits;
 int commCount = 49;
 
@@ -27,9 +27,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    PWD = getenv ("PWD");
-    pwd.append(PWD);
-    db = DbManager("E:\\My Documents\\Qt Projects\\Muster_Maker\\erainn.db");
+    QString pwd(QCoreApplication::applicationDirPath());
+    pwd.replace("/","\\");
+    db = DbManager(pwd + "\\erainn.db");
 
     //Qt Setup
     ui->setupUi(this);
@@ -156,12 +156,8 @@ void MainWindow::onBattleSizeChange()
 void MainWindow::updateHost()
 {
     int cost = 0;
-    int mnsty = 0;
-    int cmmn = 0;
-    int uncmmn = 0;
-    int rare = 0;
-    int mythic = 0;
-    int unique = 0;
+    Ubiquity* minUbi = new Ubiquity();
+    Ubiquity* totalUbi = new Ubiquity();
 
     QList<CommWidget*> commList = this->findChildren<CommWidget*>();
 
@@ -244,16 +240,26 @@ void MainWindow::updateHost()
                 cost += currCost;
 
                 //If the current unit is to be counter toward the minimum Ubiquity
-                // update the host's ubiquity counts.
+                // update the host's minimum ubiquity counts.
                 if(currUnitFrame->findChild<QCheckBox*>(prefix + "minU")->isChecked())
                 {
-                    mnsty += currUnit->ubi->mnsty;
-                    cmmn += currUnit->ubi->cmmn;
-                    uncmmn += currUnit->ubi->uncmmn;
-                    rare += currUnit->ubi->rare;
-                    mythic += currUnit->ubi->mythic;
-                    unique += (currUnit->ubi->unique) ? 1:0;
+                    increaseUbi(minUbi,
+                                currUnit->ubi->mnsty,
+                                currUnit->ubi->cmmn,
+                                currUnit->ubi->uncmmn,
+                                currUnit->ubi->rare,
+                                currUnit->ubi->mythic,
+                                currUnit->ubi->unique);
                 }
+
+                //Increase Ubiquity for host's Current Ubiquity counts
+                increaseUbi(totalUbi,
+                            currUnit->ubi->mnsty,
+                            currUnit->ubi->cmmn,
+                            currUnit->ubi->uncmmn,
+                            currUnit->ubi->rare,
+                            currUnit->ubi->mythic,
+                            currUnit->ubi->unique);
             }
         }
     }
@@ -265,18 +271,37 @@ void MainWindow::updateHost()
     }
 
     ui->read_goldCurr->setText(QString::number(cost));
-    updateUbi(mnsty, cmmn, uncmmn, rare, mythic, unique);
+    updateUbiMins(*minUbi);
+    updateUbiTotals(*totalUbi);
 
 }
 
-
-
-void MainWindow::updateUbi(int mn, int cm, int unc, int ra, int my, int uq)
+void MainWindow::updateUbiTotals(Ubiquity newUbi)
 {
-    ui->read_mnstyCurr->setText(QString::number(mn));
-    ui->read_cmmnCurr->setText(QString::number(cm));
-    ui->read_uncmmnCurr->setText(QString::number(unc));
-    ui->read_rareCurr->setText(QString::number(ra));
-    ui->read_mythicCurr->setText(QString::number(my));
-    ui->read_uniqueCurr->setText(QString::number(uq));
+    ui->read_mnstyTotal->setText(QString::number(newUbi.mnsty));
+    ui->read_cmmnTotal->setText(QString::number(newUbi.cmmn));
+    ui->read_uncmmnTotal->setText(QString::number(newUbi.uncmmn));
+    ui->read_rareTotal->setText(QString::number(newUbi.rare));
+    ui->read_mythicTotal->setText(QString::number(newUbi.mythic));
+    ui->read_uniqueTotal->setText(QString::number(newUbi.unique));
+}
+
+void MainWindow::updateUbiMins(Ubiquity newUbi)
+{
+    ui->read_mnstyCurr->setText(QString::number(newUbi.mnsty));
+    ui->read_cmmnCurr->setText(QString::number(newUbi.cmmn));
+    ui->read_uncmmnCurr->setText(QString::number(newUbi.uncmmn));
+    ui->read_rareCurr->setText(QString::number(newUbi.rare));
+    ui->read_mythicCurr->setText(QString::number(newUbi.mythic));
+    ui->read_uniqueCurr->setText(QString::number(newUbi.unique));
+}
+
+void MainWindow::increaseUbi(Ubiquity* toMod, int mnsty, int cmmn, int uncmmn, int rare, int mythic, int unique)
+{
+    toMod->mnsty += mnsty;
+    toMod->cmmn += cmmn;
+    toMod->uncmmn += uncmmn;
+    toMod->rare += rare;
+    toMod->mythic += mythic;
+    toMod->unique += (unique) ? 1:0;
 }
