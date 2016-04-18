@@ -20,7 +20,7 @@ public:
     int uncmmn;
     int rare;
     int mythic;
-    bool unique;
+    int unique;
 };
 
 struct ubiChange

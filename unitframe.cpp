@@ -5,6 +5,7 @@
 #include "dbmanager.h"
 #include <QString>
 #include "unit.h"
+#include "constants.h"
 
 UnitFrame::UnitFrame(QWidget *parent, bool comm) :
     QFrame(parent),
@@ -16,7 +17,7 @@ UnitFrame::UnitFrame(QWidget *parent, bool comm) :
     ui->unit_select->addItem("");
     if(!comm)
     {
-        for(int i = 0; i < ERAINN; i++)
+        for(int i = 0; i < ERAINN_COUNT; i++)
         {
             ui->unit_select->addItem(hostUnits[i]->name);
         }
@@ -24,7 +25,7 @@ UnitFrame::UnitFrame(QWidget *parent, bool comm) :
     else
     {
         std::vector<Unit*> commUnits;
-        for(int i = 0; i < ERAINN; i++)
+        for(int i = 0; i < ERAINN_COUNT; i++)
         {
             if(hostUnits[i]->minSize == hostUnits[i]->maxSize && hostUnits[i]->maxSize == 1 && hostUnits[i]->auth > 50)
             {
@@ -37,9 +38,18 @@ UnitFrame::UnitFrame(QWidget *parent, bool comm) :
         }
 
     }
+
+    costPerUnit = 0;
+    commandCosts[0] = 0;
+    commandCosts[1] = 0;
+    commandCosts[2] = 0;
+
     connect(ui->unit_size, SIGNAL(valueChanged(int)), this, SLOT(onSpinBoxValueChanged()), Qt::QueuedConnection);
     connect(ui->unit_select, SIGNAL(currentIndexChanged(QString)), this, SLOT(onUnitSelectChanged()));
-    connect(ui->unit_minU, SIGNAL(stateChanged(int)), this, SLOT(onMinUbiCheck()));
+    connect(ui->unit_minU, SIGNAL(stateChanged(int)), this, SLOT(callRefresh()));
+    connect(ui->unit_champ, SIGNAL(stateChanged(int)), this, SLOT(callRefresh()));
+    connect(ui->unit_banner, SIGNAL(stateChanged(int)), this, SLOT(callRefresh()));
+    connect(ui->unit_horn, SIGNAL(stateChanged(int)), this, SLOT(callRefresh()));
 }
 
 UnitFrame::~UnitFrame()
@@ -103,6 +113,7 @@ void UnitFrame::onSpinBoxValueChanged() // slot
 void UnitFrame::onUnitSelectChanged()
 {
     unsigned int i;
+    Unit* locUnit;
     for(i = 0; i < hostUnits.size(); i++)
     {
         if(hostUnits[i]->name == ui->unit_select->currentText())
@@ -115,12 +126,13 @@ void UnitFrame::onUnitSelectChanged()
         setFieldEnabled(true);
         if(i < hostUnits.size())
         {
-            Unit* locUnit = hostUnits[i];
+            locUnit = hostUnits[i];
             ui->unit_auth->setText(QString::number(locUnit->auth));
             ui->unit_size->setMinimum(locUnit->minSize);
             ui->unit_size->setMaximum(locUnit->maxSize);
             ui->unit_msize->setText(QString::number(locUnit->maxSize));
-            ui->unit_cost->setText(QString::number(locUnit->costPer*locUnit->minSize));
+            costPerUnit = locUnit->costPer;
+            ui->unit_cost->setText(QString::number(costPerUnit*locUnit->minSize));
             ui->unit_ubi->setText(constructUbi(locUnit->ubi));
 
 
@@ -145,10 +157,24 @@ void UnitFrame::onUnitSelectChanged()
         check = frameName.indexOf("_comm_");
     }
 
+    ui->unit_champ->setChecked(false);
+    ui->unit_banner->setChecked(false);
+    ui->unit_horn->setChecked(false);
+
+    int check2 = frameName.indexOf("host");
+    if(check2 != -1 && locUnit->maxSize == 1)
+    {
+        db.fetchCommandOptions(ui->unit_champ, ui->unit_banner, ui->unit_horn, locUnit->unitID, true, commandCosts);
+    }
+    else
+    {
+        db.fetchCommandOptions(ui->unit_champ, ui->unit_banner, ui->unit_horn, locUnit->unitID, false, commandCosts);
+    }
+
     if(check != -1)
     {
         emit commandChanged();
-    }
+    }   
 }
 
 void UnitFrame::setFieldEnabled(bool enable)
@@ -173,7 +199,7 @@ void UnitFrame::blankFields()
     ui->unit_cost->setText("");
 }
 
-void UnitFrame::onMinUbiCheck()
+void UnitFrame::callRefresh()
 {
     emit refresh();
 }

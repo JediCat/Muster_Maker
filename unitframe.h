@@ -22,16 +22,18 @@ public:
     void changeNames(const QString prefix, const QString number = "");
     QString constructUbi(const Ubiquity *ubi);
     void enableCheckBoxes();
+    int commandCosts[3];
 
 private:
     Ui::UnitFrame *ui;
     void setFieldEnabled(bool enable);
     void blankFields();
+    int costPerUnit;
 
 private slots:
     void onSpinBoxValueChanged();
     void onUnitSelectChanged();
-    void onMinUbiCheck();\
+    void callRefresh();\
 
 signals:
     void refresh();

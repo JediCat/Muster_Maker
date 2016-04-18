@@ -29,13 +29,13 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     QString pwd(QCoreApplication::applicationDirPath());
     pwd.replace("/","\\");
-    db = DbManager(pwd + "\\erainn.db");
+    db = DbManager(pwd + ERAINN);
 
     //Qt Setup
     ui->setupUi(this);
 
     //Populate Unit List
-    db.selectUnits(hostUnits, ERAINN);
+    db.selectUnits(hostUnits, ERAINN_COUNT);
 
     //Connections
     connect(ui->actionAdd_Command, SIGNAL(triggered(bool)), this, SLOT(addCommand()));
@@ -234,10 +234,6 @@ void MainWindow::updateHost()
 
                 //Cost of the unit = cost per unit * size of unit
                 int currCost = sizePoint->value() * currUnit->costPer;
-                //Update the displayed cost for the current Unit Frame
-                currUnitFrame->findChild<QLineEdit*>(prefix + "cost")->setText(QString::number(currCost));
-                //Add the current cost to the total cost of the host
-                cost += currCost;
 
                 //If the current unit is to be counter toward the minimum Ubiquity
                 // update the host's minimum ubiquity counts.
@@ -251,6 +247,12 @@ void MainWindow::updateHost()
                                 currUnit->ubi->mythic,
                                 currUnit->ubi->unique);
                 }
+                else
+                {
+                    currCost += (currUnitFrame->findChild<QCheckBox*>(prefix + "champ")->isChecked()) ? currUnitFrame->commandCosts[0] : 0;
+                    currCost += (currUnitFrame->findChild<QCheckBox*>(prefix + "banner")->isChecked()) ? currUnitFrame->commandCosts[1] : 0;
+                    currCost += (currUnitFrame->findChild<QCheckBox*>(prefix + "horn")->isChecked()) ? currUnitFrame->commandCosts[2] : 0;
+                }
 
                 //Increase Ubiquity for host's Current Ubiquity counts
                 increaseUbi(totalUbi,
@@ -260,6 +262,10 @@ void MainWindow::updateHost()
                             currUnit->ubi->rare,
                             currUnit->ubi->mythic,
                             currUnit->ubi->unique);
+                //Update the displayed cost for the current Unit Frame
+                currUnitFrame->findChild<QLineEdit*>(prefix + "cost")->setText(QString::number(currCost));
+                //Add the current cost to the total cost of the host
+                cost += currCost;
             }
         }
     }
@@ -296,12 +302,12 @@ void MainWindow::updateUbiMins(Ubiquity newUbi)
     ui->read_uniqueCurr->setText(QString::number(newUbi.unique));
 }
 
-void MainWindow::increaseUbi(Ubiquity* toMod, int mnsty, int cmmn, int uncmmn, int rare, int mythic, int unique)
+void MainWindow::increaseUbi(Ubiquity* toMod, int mnsty, int cmmn, int uncmmn, int rare, int mythic, bool unique)
 {
     toMod->mnsty += mnsty;
     toMod->cmmn += cmmn;
     toMod->uncmmn += uncmmn;
     toMod->rare += rare;
     toMod->mythic += mythic;
-    toMod->unique += (unique) ? 1:0;
+    toMod->unique += (unique) ? 1 : 0;
 }

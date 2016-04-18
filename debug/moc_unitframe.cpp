@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_UnitFrame_t {
     QByteArrayData data[7];
-    char stringdata0[90];
+    char stringdata0[88];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,12 +35,12 @@ QT_MOC_LITERAL(2, 18, 0), // ""
 QT_MOC_LITERAL(3, 19, 14), // "commandChanged"
 QT_MOC_LITERAL(4, 34, 21), // "onSpinBoxValueChanged"
 QT_MOC_LITERAL(5, 56, 19), // "onUnitSelectChanged"
-QT_MOC_LITERAL(6, 76, 13) // "onMinUbiCheck"
+QT_MOC_LITERAL(6, 76, 11) // "callRefresh"
 
     },
     "UnitFrame\0refresh\0\0commandChanged\0"
     "onSpinBoxValueChanged\0onUnitSelectChanged\0"
-    "onMinUbiCheck"
+    "callRefresh"
 };
 #undef QT_MOC_LITERAL
 
@@ -88,7 +88,7 @@ void UnitFrame::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 1: _t->commandChanged(); break;
         case 2: _t->onSpinBoxValueChanged(); break;
         case 3: _t->onUnitSelectChanged(); break;
-        case 4: _t->onMinUbiCheck(); break;
+        case 4: _t->callRefresh(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

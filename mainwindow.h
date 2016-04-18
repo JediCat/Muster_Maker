@@ -23,7 +23,7 @@ private:
     Ui::MainWindow *ui;
     void updateUbiMins(Ubiquity newUbi);
     void updateUbiTotals(Ubiquity newUbi);
-    void increaseUbi(Ubiquity* toMod, int mnsty, int cmmn, int uncmmn, int rare, int mythic, int unique);
+    void increaseUbi(Ubiquity* toMod, int mnsty, int cmmn, int uncmmn, int rare, int mythic, bool unique);
 
 private slots:
     void addCommand();

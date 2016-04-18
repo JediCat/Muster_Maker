@@ -1,6 +1,7 @@
 #include "dbmanager.h"
 #include <QStringList>
 #include "ubiquity.h"
+#include "constants.h"
 
 DbManager::DbManager()
 {
@@ -200,7 +201,7 @@ Ubiquity* DbManager::fetchUbi(int ubiID2)
     {
         if(query.next())
         {
-            ubi->unique = query.value(0).toBool();
+            ubi->unique = query.value(0).toInt();
         }
     }
 
@@ -250,4 +251,63 @@ std::vector<ubiChange> DbManager::fetchUbiChange(int commID)
     }
 
     return toReturn;
+}
+
+void DbManager::fetchCommandOptions(QCheckBox *champ, QCheckBox *banner, QCheckBox *horn, int unitID, bool hostCommand, int cost[])
+{
+    int chCode = (hostCommand) ? HOST_CHAMPION_CODE : CHAMPION_CODE;
+    int baCode = (hostCommand) ? HOST_BANNER_CODE : BANNER_CODE;
+    int hoCode = (hostCommand) ? HOST_HORN_CODE : HORN_CODE;
+
+    QSqlQuery query;
+    query.prepare("SELECT cost FROM unitOptions WHERE optType = (:chCode) AND unitID = (:unitID)");
+    query.bindValue(":chCode", chCode);
+    query.bindValue(":unitID", unitID);
+    if(query.exec())
+    {
+        if(query.next())
+        {
+            champ->setEnabled(true);
+            cost[0] = query.value(0).toInt();
+        }
+        else
+        {
+            cost[0] = 0;
+            champ->setEnabled(false);
+        }
+    }
+
+    query.prepare("SELECT cost FROM unitOptions WHERE optType = (:baCode) AND unitID = (:unitID)");
+    query.bindValue(":baCode", baCode);
+    query.bindValue(":unitID", unitID);
+    if(query.exec())
+    {
+        if(query.next())
+        {
+            banner->setEnabled(true);
+            cost[1] = query.value(0).toInt();
+        }
+        else
+        {
+            cost[1] = 0;
+            banner->setEnabled(false);
+        }
+    }
+
+    query.prepare("SELECT cost FROM unitOptions WHERE optType = (:hoCode) AND unitID = (:unitID)");
+    query.bindValue(":hoCode", hoCode);
+    query.bindValue(":unitID", unitID);
+    if(query.exec())
+    {
+        if(query.next())
+        {
+            horn->setEnabled(true);
+            cost[2] = query.value(0).toInt();
+        }
+        else
+        {
+            cost[2] = 0;
+            horn->setEnabled(false);
+        }
+    }
 }
