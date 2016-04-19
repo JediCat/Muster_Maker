@@ -20,7 +20,9 @@ SOURCES += main.cpp\
     newmusterdialog.cpp \
     ubiquity.cpp \
     unit.cpp \
-    unitframe.cpp
+    unitframe.cpp \
+    unitinvocframe.cpp \
+    invocation.cpp
 
 HEADERS  += mainwindow.h \
     battlesize.h \
@@ -30,11 +32,14 @@ HEADERS  += mainwindow.h \
     newmusterdialog.h \
     ubiquity.h \
     unit.h \
-    unitframe.h
+    unitframe.h \
+    unitinvocframe.h \
+    invocation.h
 
 FORMS    += mainwindow.ui \
     commwidget.ui \
     newmusterdialog.ui \
-    unitframe.ui
+    unitframe.ui \
+    unitinvocframe.ui
 
-#CONFIG += static
+CONFIG += static
