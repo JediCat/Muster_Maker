@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_UnitFrame_t {
-    QByteArrayData data[7];
-    char stringdata0[88];
+    QByteArrayData data[11];
+    char stringdata0[124];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,12 +33,17 @@ QT_MOC_LITERAL(0, 0, 9), // "UnitFrame"
 QT_MOC_LITERAL(1, 10, 7), // "refresh"
 QT_MOC_LITERAL(2, 18, 0), // ""
 QT_MOC_LITERAL(3, 19, 14), // "commandChanged"
-QT_MOC_LITERAL(4, 34, 21), // "onSpinBoxValueChanged"
-QT_MOC_LITERAL(5, 56, 19), // "onUnitSelectChanged"
-QT_MOC_LITERAL(6, 76, 11) // "callRefresh"
+QT_MOC_LITERAL(4, 34, 11), // "invocChange"
+QT_MOC_LITERAL(5, 46, 6), // "prefix"
+QT_MOC_LITERAL(6, 53, 6), // "remove"
+QT_MOC_LITERAL(7, 60, 9), // "unitIndex"
+QT_MOC_LITERAL(8, 70, 21), // "onSpinBoxValueChanged"
+QT_MOC_LITERAL(9, 92, 19), // "onUnitSelectChanged"
+QT_MOC_LITERAL(10, 112, 11) // "callRefresh"
 
     },
     "UnitFrame\0refresh\0\0commandChanged\0"
+    "invocChange\0prefix\0remove\0unitIndex\0"
     "onSpinBoxValueChanged\0onUnitSelectChanged\0"
     "callRefresh"
 };
@@ -50,25 +55,27 @@ static const uint qt_meta_data_UnitFrame[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       2,       // signalCount
+       3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   39,    2, 0x06 /* Public */,
-       3,    0,   40,    2, 0x06 /* Public */,
+       1,    0,   44,    2, 0x06 /* Public */,
+       3,    0,   45,    2, 0x06 /* Public */,
+       4,    3,   46,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       4,    0,   41,    2, 0x08 /* Private */,
-       5,    0,   42,    2, 0x08 /* Private */,
-       6,    0,   43,    2, 0x08 /* Private */,
+       8,    0,   53,    2, 0x08 /* Private */,
+       9,    0,   54,    2, 0x08 /* Private */,
+      10,    0,   55,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString, QMetaType::Bool, QMetaType::Int,    5,    6,    7,
 
  // slots: parameters
     QMetaType::Void,
@@ -86,9 +93,10 @@ void UnitFrame::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         switch (_id) {
         case 0: _t->refresh(); break;
         case 1: _t->commandChanged(); break;
-        case 2: _t->onSpinBoxValueChanged(); break;
-        case 3: _t->onUnitSelectChanged(); break;
-        case 4: _t->callRefresh(); break;
+        case 2: _t->invocChange((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
+        case 3: _t->onSpinBoxValueChanged(); break;
+        case 4: _t->onUnitSelectChanged(); break;
+        case 5: _t->callRefresh(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -106,8 +114,13 @@ void UnitFrame::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
                 *result = 1;
             }
         }
+        {
+            typedef void (UnitFrame::*_t)(QString , bool , int );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&UnitFrame::invocChange)) {
+                *result = 2;
+            }
+        }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObject UnitFrame::staticMetaObject = {
@@ -135,13 +148,13 @@ int UnitFrame::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 6)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 5;
+        _id -= 6;
     }
     return _id;
 }
@@ -156,5 +169,12 @@ void UnitFrame::refresh()
 void UnitFrame::commandChanged()
 {
     QMetaObject::activate(this, &staticMetaObject, 1, Q_NULLPTR);
+}
+
+// SIGNAL 2
+void UnitFrame::invocChange(QString _t1, bool _t2, int _t3)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)) };
+    QMetaObject::activate(this, &staticMetaObject, 2, _a);
 }
 QT_END_MOC_NAMESPACE

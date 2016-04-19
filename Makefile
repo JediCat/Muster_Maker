@@ -358,12 +358,11 @@ qmake_all: FORCE
 make_first: debug-make_first release-make_first  FORCE
 all: debug-all release-all  FORCE
 clean: debug-clean release-clean  FORCE
-	-$(DEL_FILE) Muster_Maker.exp
 	-$(DEL_FILE) Muster_Maker.ilk
 	-$(DEL_FILE) Muster_Maker.idb
 distclean: debug-distclean release-distclean  FORCE
 	-$(DEL_FILE) Makefile
-	-$(DEL_FILE) Muster_Maker.lib Muster_Maker.pdb
+	-$(DEL_FILE) Muster_Maker.pdb
 
 debug-mocclean:
 	@set MAKEFLAGS=$(MAKEFLAGS)

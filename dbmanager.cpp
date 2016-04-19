@@ -2,6 +2,7 @@
 #include <QStringList>
 #include "ubiquity.h"
 #include "constants.h"
+#include "unit.h"
 
 DbManager::DbManager()
 {
@@ -24,7 +25,7 @@ DbManager::DbManager(const QString &path)
 
 }
 
-void DbManager::selectUnits(std::vector<Unit *>& unitVector, const int KINDRED_CODE)
+void DbManager::fetchUnits()
 {
     QSqlQuery query("SELECT unitID FROM units");
     if(query.exec())
@@ -36,14 +37,15 @@ void DbManager::selectUnits(std::vector<Unit *>& unitVector, const int KINDRED_C
         qDebug() <<  m_db.lastError();
     }
 
-    int numUnits = KINDRED_CODE;
-    int* unitID = new int[numUnits];
+    int numUnits;
+    std::vector<int> unitID;
     int curr = 0;
     while(query.next())
     {
-        unitID[curr] = query.value(0).toInt();
+        unitID.insert(unitID.end(), query.value(0).toInt());
         curr++;
     }
+    numUnits = unitID.size();
     curr = 0;
 
     QString* name = new QString[numUnits];
@@ -136,7 +138,7 @@ void DbManager::selectUnits(std::vector<Unit *>& unitVector, const int KINDRED_C
     for(int i = 0; i < numUnits; i++)
     {
         Unit* unit = new Unit(unitID[i], name[i], comm[i], gen[i], costPer[i], minSize[i], maxSize[i], invocSlots[i], ubiID[i], auth[i], ubi[i]);
-        unitVector.insert(unitVector.end(), unit);
+        hostUnits.insert(hostUnits.end(), unit);
     }
 
 }
@@ -308,6 +310,44 @@ void DbManager::fetchCommandOptions(QCheckBox *champ, QCheckBox *banner, QCheckB
         {
             cost[2] = 0;
             horn->setEnabled(false);
+        }
+    }
+}
+
+void DbManager::fetchInvocations()
+{
+    QSqlQuery query;
+    query.prepare("SELECT invocID FROM invocations");
+    if(query.exec())
+    {
+        while(query.next())
+        {
+            invocation temp;
+            temp.invocID = query.value(0).toInt();
+            invocList.insert(invocList.end(), temp);
+            numInvoc++;
+        }
+    }
+
+    query.prepare("SELECT name FROM invocations");
+    if(query.exec())
+    {
+        int i = 0;
+        while(query.next())
+        {
+            invocList[i].name = query.value(0).toString();
+            i++;
+        }
+    }
+
+    query.prepare("SELECT cost FROM invocations");
+    if(query.exec())
+    {
+        int i = 0;
+        while(query.next())
+        {
+            invocList[i].cost = query.value(0).toInt();
+            i++;
         }
     }
 }

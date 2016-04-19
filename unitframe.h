@@ -29,6 +29,7 @@ private:
     void setFieldEnabled(bool enable);
     void blankFields();
     int costPerUnit;
+    int prevUnit; //For storing the previous unit selected for the frame; used for dynamic options and invocations
 
 private slots:
     void onSpinBoxValueChanged();
@@ -38,6 +39,7 @@ private slots:
 signals:
     void refresh();
     void commandChanged();
+    void invocChange(QString prefix, bool remove, int unitIndex);
 
 };
 

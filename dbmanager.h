@@ -11,16 +11,18 @@
 #include <QSql>
 #include "ubiquity.h"
 #include <QCheckBox>
+#include "invocation.h"
 
 class DbManager
 {
 public:
     DbManager(const QString& path);
     DbManager();
-    void selectUnits(std::vector<Unit*>& unitVector, const int KINDRED_CODE);
+    void fetchUnits();
     Ubiquity *fetchUbi(int ubiID2);
     std::vector<ubiChange> fetchUbiChange(int commID);
     void fetchCommandOptions(QCheckBox* champ, QCheckBox* banner, QCheckBox* horn, int unitID, bool hostCommand, int cost[]);
+    void fetchInvocations();
 
 private:
     QSqlDatabase m_db;

@@ -865,7 +865,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
@@ -888,9 +888,108 @@
        </attribute>
       </widget>
       <widget class="QWidget" name="hostInvoc">
+       <property name="autoFillBackground">
+        <bool>true</bool>
+       </property>
        <attribute name="title">
         <string>Invocations</string>
        </attribute>
+       <widget class="QScrollArea" name="invoc_scroll">
+        <property name="geometry">
+         <rect>
+          <x>365</x>
+          <y>0</y>
+          <width>330</width>
+          <height>374</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>330</width>
+          <height>374</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <widget class="QWidget" name="invoc_scrollArea">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>328</width>
+           <height>372</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="invocUnitList">
+          <property name="leftMargin">
+           <number>5</number>
+          </property>
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <property name="rightMargin">
+           <number>5</number>
+          </property>
+         </layout>
+        </widget>
+       </widget>
+       <widget class="QWidget" name="invocListWidget" native="true">
+        <property name="geometry">
+         <rect>
+          <x>700</x>
+          <y>0</y>
+          <width>151</width>
+          <height>371</height>
+         </rect>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>151</width>
+          <height>371</height>
+         </size>
+        </property>
+        <layout class="QFormLayout" name="invocListLayout">
+         <item row="0" column="0" colspan="2">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Invocations</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <widget class="Line" name="line">
+           <property name="minimumSize">
+            <size>
+             <width>30</width>
+             <height>2</height>
+            </size>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+           <property name="lineWidth">
+            <number>1</number>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
      </widget>
     </item>

@@ -47,6 +47,7 @@ CommWidget::CommWidget(bool gen, QString numComm, QWidget *parent) :
     connect(ui->comm_remUnit, SIGNAL(clicked(bool)), this, SLOT(removeUnit()));
     connect(newComm, SIGNAL(refresh()), this, SLOT(requestRefreshHost()));
     connect(newComm, SIGNAL(commandChanged()), this, SLOT(handleCommanderChange()));
+    connect(newComm, SIGNAL(invocChange(QString,bool,int)), this, SLOT(requestRefreshInvoc(QString,bool,int)));
 
     ui->comm_layout->addWidget(newComm);
 }
@@ -85,6 +86,7 @@ void CommWidget::addUnit()
     ui->comm_layout->addWidget(newUnit);
 
     connect(newUnit, SIGNAL(refresh()), this, SLOT(requestRefreshHost()));
+    connect(newUnit, SIGNAL(invocChange(QString,bool,int)), this, SLOT(requestRefreshInvoc(QString,bool,int)));
 
     newUnit->show();
 
@@ -155,4 +157,9 @@ void CommWidget::handleCommanderChange()
     }
 
     emit refresh();
+}
+
+void CommWidget::requestRefreshInvoc(QString prefix, bool remove, int unitIndex)
+{
+    emit invocChange(prefix, remove, unitIndex);
 }

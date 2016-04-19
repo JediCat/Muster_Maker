@@ -43,6 +43,7 @@ UnitFrame::UnitFrame(QWidget *parent, bool comm) :
     commandCosts[0] = 0;
     commandCosts[1] = 0;
     commandCosts[2] = 0;
+    prevUnit = 99;
 
     connect(ui->unit_size, SIGNAL(valueChanged(int)), this, SLOT(onSpinBoxValueChanged()), Qt::QueuedConnection);
     connect(ui->unit_select, SIGNAL(currentIndexChanged(QString)), this, SLOT(onUnitSelectChanged()));
@@ -112,12 +113,20 @@ void UnitFrame::onSpinBoxValueChanged() // slot
 
 void UnitFrame::onUnitSelectChanged()
 {
+    //For dynamic invocation management
+    if(prevUnit != 99 && hostUnits[prevUnit]->invocSlots > 0)
+    {
+        emit invocChange(this->objectName(), true, prevUnit);
+    }
+
+
     unsigned int i;
     Unit* locUnit;
     for(i = 0; i < hostUnits.size(); i++)
     {
         if(hostUnits[i]->name == ui->unit_select->currentText())
         {
+            prevUnit = i;
             break;
         }
     }
@@ -174,7 +183,12 @@ void UnitFrame::onUnitSelectChanged()
     if(check != -1)
     {
         emit commandChanged();
-    }   
+    }
+
+    if(locUnit->invocSlots > 0)
+    {
+        emit invocChange(frameName, false, i);
+    }
 }
 
 void UnitFrame::setFieldEnabled(bool enable)

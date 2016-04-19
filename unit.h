@@ -42,6 +42,7 @@ public:
 };
 
 extern std::vector<Unit*> hostUnits;
+extern int numHostUnits;
 
 Unit* findUnit(QString name);
 

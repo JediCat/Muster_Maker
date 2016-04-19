@@ -6,6 +6,7 @@
 class Unit;
 class QString;
 class Ubiquity;
+class QComboBox;
 
 namespace Ui {
 class MainWindow;
@@ -24,12 +25,16 @@ private:
     void updateUbiMins(Ubiquity newUbi);
     void updateUbiTotals(Ubiquity newUbi);
     void increaseUbi(Ubiquity* toMod, int mnsty, int cmmn, int uncmmn, int rare, int mythic, bool unique);
+    void setInvocList();
+    void addInvocToCombo(QComboBox* iList);
+    QString numToString(int num);
 
 private slots:
     void addCommand();
     void removeCommand();
     void onBattleSizeChange();
     void updateHost();
+    void refreshInvocations(QString prefix, bool remove, int unitIndex);
 };
 
 #endif // MAINWINDOW_H

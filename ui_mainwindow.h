@@ -14,6 +14,8 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QFrame>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -21,8 +23,10 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -83,6 +87,13 @@ public:
     QTabWidget *tabWidget;
     QWidget *hostOptions;
     QWidget *hostInvoc;
+    QScrollArea *invoc_scroll;
+    QWidget *invoc_scrollArea;
+    QVBoxLayout *invocUnitList;
+    QWidget *invocListWidget;
+    QFormLayout *invocListLayout;
+    QLabel *label_2;
+    QFrame *line;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuCommands;
@@ -533,6 +544,46 @@ public:
         tabWidget->addTab(hostOptions, QString());
         hostInvoc = new QWidget();
         hostInvoc->setObjectName(QStringLiteral("hostInvoc"));
+        hostInvoc->setAutoFillBackground(true);
+        invoc_scroll = new QScrollArea(hostInvoc);
+        invoc_scroll->setObjectName(QStringLiteral("invoc_scroll"));
+        invoc_scroll->setGeometry(QRect(365, 0, 330, 374));
+        invoc_scroll->setMinimumSize(QSize(330, 374));
+        invoc_scroll->setMaximumSize(QSize(16777215, 16777215));
+        invoc_scroll->setWidgetResizable(true);
+        invoc_scroll->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        invoc_scrollArea = new QWidget();
+        invoc_scrollArea->setObjectName(QStringLiteral("invoc_scrollArea"));
+        invoc_scrollArea->setGeometry(QRect(0, 0, 328, 372));
+        invocUnitList = new QVBoxLayout(invoc_scrollArea);
+        invocUnitList->setSpacing(6);
+        invocUnitList->setContentsMargins(11, 11, 11, 11);
+        invocUnitList->setObjectName(QStringLiteral("invocUnitList"));
+        invocUnitList->setContentsMargins(5, 5, 5, -1);
+        invoc_scroll->setWidget(invoc_scrollArea);
+        invocListWidget = new QWidget(hostInvoc);
+        invocListWidget->setObjectName(QStringLiteral("invocListWidget"));
+        invocListWidget->setGeometry(QRect(700, 0, 151, 371));
+        invocListWidget->setMaximumSize(QSize(151, 371));
+        invocListLayout = new QFormLayout(invocListWidget);
+        invocListLayout->setSpacing(6);
+        invocListLayout->setContentsMargins(11, 11, 11, 11);
+        invocListLayout->setObjectName(QStringLiteral("invocListLayout"));
+        label_2 = new QLabel(invocListWidget);
+        label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setAlignment(Qt::AlignCenter);
+
+        invocListLayout->setWidget(0, QFormLayout::SpanningRole, label_2);
+
+        line = new QFrame(invocListWidget);
+        line->setObjectName(QStringLiteral("line"));
+        line->setMinimumSize(QSize(30, 2));
+        line->setFrameShadow(QFrame::Plain);
+        line->setLineWidth(1);
+        line->setFrameShape(QFrame::HLine);
+
+        invocListLayout->setWidget(1, QFormLayout::SpanningRole, line);
+
         tabWidget->addTab(hostInvoc, QString());
 
         gridLayout->addWidget(tabWidget, 0, 0, 1, 1);
@@ -562,7 +613,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -603,6 +654,7 @@ public:
         read_mnstyTotal->setText(QApplication::translate("MainWindow", "0", 0));
         read_uniqueTotal->setText(QApplication::translate("MainWindow", "0", 0));
         tabWidget->setTabText(tabWidget->indexOf(hostOptions), QApplication::translate("MainWindow", "Unit Options", 0));
+        label_2->setText(QApplication::translate("MainWindow", "Invocations", 0));
         tabWidget->setTabText(tabWidget->indexOf(hostInvoc), QApplication::translate("MainWindow", "Invocations", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuCommands->setTitle(QApplication::translate("MainWindow", "Commands", 0));

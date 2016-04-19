@@ -1,26 +1,33 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include "unitframe.h"
-#include "commwidget.h"
+//Qt Classes
 #include <QPushButton>
 #include <QObject>
 #include <QWidget>
 #include <QVector>
 #include <QCheckBox>
 #include <QSpinBox>
+#include <QComboBox>
+#include <QLineEdit>
+#include <QDebug>
+
+//Program Classes & Helpers
+#include "mainwindow.h"
+#include "ui_mainwindow.h"
+#include "unitframe.h"
+#include "commwidget.h"
 #include "unit.h"
 #include "dbmanager.h"
 #include "battlesize.h"
-#include <QComboBox>
-#include <QLineEdit>
 #include "ubiquity.h"
-
+#include "invocation.h"
+#include "unitinvocframe.h"
 
 
 QVector<int> unitsPerTab;
 
 DbManager db;
 std::vector<Unit*> hostUnits;
+std::vector<invocation> invocList;
+int numInvoc = 0;
 int commCount = 49;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -35,13 +42,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     //Populate Unit List
-    db.selectUnits(hostUnits, ERAINN_COUNT);
+    db.fetchUnits();
+
+    //Populate Invocation List
+    db.fetchInvocations();
 
     //Connections
     connect(ui->actionAdd_Command, SIGNAL(triggered(bool)), this, SLOT(addCommand()));
     connect(ui->actionRemove_Command, SIGNAL(triggered(bool)), this, SLOT(removeCommand()));
     connect(ui->batSizeSlct, SIGNAL(currentIndexChanged(QString)), this, SLOT(onBattleSizeChange()));
-
 
     //Initialize First Commands
     CommWidget* hostComm = new CommWidget(true);
@@ -50,9 +59,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tabWidget->insertTab(commCount-48, commOne, "Command " + QString(QChar(commCount)));
     commCount++;
 
+    //Initialize Invocation List
+    setInvocList();
+
     //Connect Initial Commands
     connect(hostComm, SIGNAL(refresh()), this, SLOT(updateHost()), Qt::QueuedConnection);
     connect(commOne, SIGNAL(refresh()), this, SLOT(updateHost()), Qt::QueuedConnection);
+    connect(hostComm, SIGNAL(invocChange(QString,bool,int)), this, SLOT(refreshInvocations(QString,bool,int)));
+    connect(commOne, SIGNAL(invocChange(QString,bool,int)), this, SLOT(refreshInvocations(QString,bool,int)));
 
     //Populate Battle Sizes
     ui->batSizeSlct->addItem("");
@@ -62,6 +76,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->batSizeSlct->addItem(BATTLESIZE[3].name);
     ui->batSizeSlct->addItem(BATTLESIZE[4].name);
 
+    //Fix Invoc List layout alignment
+    ui->invocUnitList->setAlignment(Qt::AlignTop);
 
     //Set view to first tab
     ui->tabWidget->setCurrentIndex(0);
@@ -76,6 +92,8 @@ MainWindow::~MainWindow()
 void MainWindow::addCommand()
 {
     CommWidget* comm = new CommWidget(false, QString(QChar(commCount)));
+    connect(comm, SIGNAL(refresh()), this, SLOT(updateHost()), Qt::QueuedConnection);
+    connect(comm, SIGNAL(invocChange(QString,bool,int)), this, SLOT(refreshInvocations(QString,bool,int)));
     ui->tabWidget->insertTab(commCount-48, comm, "Command " + QString(QChar(commCount)));
     commCount++;
 
@@ -276,6 +294,23 @@ void MainWindow::updateHost()
         firstComm->findChild<QLineEdit*>(firstComm->objectName() + "auth")->setText(QString::number(auth));
     }
 
+    //Section for Dynamic Invocation Cost Upates
+    QList<UnitInvocFrame*> invocUnits = ui->invoc_scrollArea->findChildren<UnitInvocFrame*>();
+    int numInvUnits = invocUnits.size();
+
+    for(int i = 0; i < numInvUnits; i++)
+    {
+        QList<QComboBox*> invocs = invocUnits[i]->findChildren<QComboBox*>();
+        int numInvocations = invocs.size();
+        for(int j = 0; j < numInvocations; j++)
+        {
+            if(invocs[j]->currentText() != "")
+            {
+                cost += invocList[findInvocation(invocs[j]->currentText())].cost;
+            }
+        }
+    }
+
     ui->read_goldCurr->setText(QString::number(cost));
     updateUbiMins(*minUbi);
     updateUbiTotals(*totalUbi);
@@ -310,4 +345,116 @@ void MainWindow::increaseUbi(Ubiquity* toMod, int mnsty, int cmmn, int uncmmn, i
     toMod->rare += rare;
     toMod->mythic += mythic;
     toMod->unique += (unique) ? 1 : 0;
+}
+
+void MainWindow::setInvocList()
+{
+    for(int i = 0; i < numInvoc; i++)
+    {
+        QLabel* tempName = new QLabel;
+        tempName->setObjectName("invocList_label" + QString::number(i));
+        tempName->setText(invocList[i].name);
+
+        QLabel* tempCost = new QLabel;
+        tempCost->setObjectName("invocList_cost" + QString::number(i));
+        tempCost->setMaximumWidth(30);
+        tempCost->setMinimumWidth(30);
+        tempCost->setText(QString::number(invocList[i].cost));
+        tempCost->setAlignment(Qt::AlignHCenter);
+
+        ui->invocListLayout->addRow(tempName, tempCost);
+
+    }
+}
+
+void MainWindow::refreshInvocations(QString prefix, bool remove, int unitIndex)
+{
+    if(!remove)
+    {
+        UnitInvocFrame* tempFrame = new UnitInvocFrame();
+        tempFrame->changeNames(prefix);
+        int numSlots = hostUnits[unitIndex]->invocSlots;
+        for(int i = 0; i < numSlots; i++)
+        {
+            QComboBox* tempCombo = new QComboBox;
+            tempCombo->setObjectName(prefix + "slot" + QString::number(i+1));
+            tempCombo->setMinimumWidth(278);
+            tempCombo->setMaximumWidth(278);
+            tempCombo->addItem("");
+            addInvocToCombo(tempCombo);
+
+            connect(tempCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(updateHost()));
+
+            tempFrame->findChild<QVBoxLayout*>(prefix + "layout")->addWidget(tempCombo);
+            tempFrame->setMaximumHeight(tempFrame->maximumHeight()+20);
+
+        }
+        tempFrame->setMinimumHeight(tempFrame->maximumHeight());
+
+        QLineEdit* tempLine = tempFrame->findChild<QLineEdit*>(prefix + "name");
+        if(prefix.indexOf("gen") > -1)
+        {
+            tempLine->setText("General: " + hostUnits[unitIndex]->name);
+        }
+        else if(prefix.indexOf("host") > -1)
+        {
+            tempLine->setText("Host Command: " + hostUnits[unitIndex]->name);
+        }
+        else if(prefix.indexOf("_comm_") > -1)
+        {
+            for(int i = 49; i <= commCount; i++)
+            {
+                if(prefix.indexOf(QString::number(i-48)) > -1)
+                {
+                    tempLine->setText(numToString(i-48) + " Commander: " + hostUnits[unitIndex]->name);
+                }
+            }
+        }
+        else
+        {
+            for(int i = 49; i <= commCount; i++)
+            {
+                if(prefix.indexOf(QString::number(i-48)) > -1)
+                {
+                    tempLine->setText(numToString(i-48) + " Command: " + hostUnits[unitIndex]->name);
+                }
+            }
+        }
+
+        qDebug() << tempFrame->objectName();
+        ui->invocUnitList->addWidget(tempFrame);
+    }
+    else
+    {
+        UnitInvocFrame* toDelete = ui->invoc_scrollArea->findChild<UnitInvocFrame*>(prefix);
+        delete toDelete;
+    }
+}
+
+void MainWindow::addInvocToCombo(QComboBox *iList)
+{
+    for(int i = 0; i < numInvoc; i++)
+    {
+        iList->addItem(invocList[i].name);
+    }
+}
+
+QString MainWindow::numToString(int num)
+{
+    switch(num)
+    {
+    case 1:
+        return "1st";
+        break;
+    case 2:
+        return "2nd";
+        break;
+    case 3:
+        return "3rd";
+        break;
+    default:
+        return (QString::number(num) + "th");
+    }
+
+    return QString::number(-1);
 }

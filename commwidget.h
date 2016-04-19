@@ -26,9 +26,11 @@ private slots:
     void removeUnit();
     void requestRefreshHost();
     void handleCommanderChange();
+    void requestRefreshInvoc(QString prefix, bool remove, int unitIndex);
 
 signals:
     void refresh();
+    void invocChange(QString prefix, bool remove, int unitIndex);
 };
 
 #endif // COMMWIDGET_H
