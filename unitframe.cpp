@@ -153,6 +153,7 @@ void UnitFrame::onUnitSelectChanged()
     }
     else
     {
+        locUnit = NULL;
         setFieldEnabled(false);
     }
 
@@ -171,23 +172,26 @@ void UnitFrame::onUnitSelectChanged()
     ui->unit_horn->setChecked(false);
 
     int check2 = frameName.indexOf("host");
-    if(check2 != -1 && locUnit->maxSize == 1)
+    if(locUnit != NULL)
     {
-        db.fetchCommandOptions(ui->unit_champ, ui->unit_banner, ui->unit_horn, locUnit->unitID, true, commandCosts);
-    }
-    else
-    {
-        db.fetchCommandOptions(ui->unit_champ, ui->unit_banner, ui->unit_horn, locUnit->unitID, false, commandCosts);
+        if(check2 != -1 && locUnit->maxSize == 1)
+        {
+            db.fetchCommandOptions(ui->unit_champ, ui->unit_banner, ui->unit_horn, locUnit->unitID, true, commandCosts);
+        }
+        else
+        {
+            db.fetchCommandOptions(ui->unit_champ, ui->unit_banner, ui->unit_horn, locUnit->unitID, false, commandCosts);
+        }
+
+        if(locUnit->invocSlots > 0)
+        {
+            emit invocChange(frameName, false, i);
+        }
     }
 
     if(check != -1)
     {
         emit commandChanged();
-    }
-
-    if(locUnit->invocSlots > 0)
-    {
-        emit invocChange(frameName, false, i);
     }
 }
 

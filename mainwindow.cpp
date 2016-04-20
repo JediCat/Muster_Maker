@@ -190,6 +190,7 @@ void MainWindow::updateHost()
 
     //Variables for dynamic updating of authority if the First Command's commander is the General
     UnitFrame* general;
+    QString generalName;
     UnitFrame* firstComm;
     QString firstCommName;
     int auth;
@@ -220,6 +221,7 @@ void MainWindow::updateHost()
             {
                 general = currUnitFrame;
                 auth = general->findChild<QLineEdit*>("gen_auth")->text().toInt();
+                generalName = unitName->currentText();
             }
             else if(prefix == "comm_1_comm_")
             {
@@ -288,7 +290,7 @@ void MainWindow::updateHost()
         }
     }
 
-    if(firstCommName == "General")
+    if(firstCommName == "General" && generalName != "")
     {
         auth -= authToSub;
         firstComm->findChild<QLineEdit*>(firstComm->objectName() + "auth")->setText(QString::number(auth));
