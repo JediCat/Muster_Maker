@@ -31,6 +31,11 @@ Unit* findUnit(QString name)
         if(hostUnits[i]->name == name)
         {
             target = hostUnits[i];
+            break;
+        }
+        else
+        {
+            target = NULL;
         }
     }
 

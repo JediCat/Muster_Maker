@@ -3,14 +3,35 @@
 
 #include <QString>
 
+const int NUM_KINDRED = 13;
 
+const QString KINDRED_DB[13] = {"\\albainn.db",
+                                "\\anglecynn.db",
+                                "\\atalantes.db",
+                                "\\brythoniaiddb",
+                                "\\byzantii.db",
+                                "\\erainn.db",
+                                "\\fomoraic.db",
+                                "\\infernii.db",
+                                "\\jutes.db",
+                                "\\khthones.db",
+                                "\\norse.db",
+                                "\\vras.db",
+                                "\\ysian.db"};
 
-const int ANGLECYNN_REALM_COUNT = 4;
-const int ANGLECYNN = 0;
-
-const QString ERAINN = "\\erainn.db";
-const int ERAINN_REALM_COUNT = 1;
-const int ERAINN_COUNT = 17;
+const QString KINDRED_NAME[13] = {"Albainn",
+                                  "Anglecynn",
+                                  "Atalantes",
+                                  "Brythoniaid",
+                                  "Byzantii",
+                                  "Erainn",
+                                  "Fomoraic",
+                                  "Infernii",
+                                  "Jutes",
+                                  "Khthones",
+                                  "Norse",
+                                  "Vras",
+                                  "Ysian"};
 
 const int WEAPON_CODE               = 1;
 const int ARMOUR_CODE               = 2;

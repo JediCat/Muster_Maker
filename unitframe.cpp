@@ -17,7 +17,7 @@ UnitFrame::UnitFrame(QWidget *parent, bool comm) :
     ui->unit_select->addItem("");
     if(!comm)
     {
-        for(int i = 0; i < ERAINN_COUNT; i++)
+        for(int i = 0; i < hostUnits.size(); i++)
         {
             ui->unit_select->addItem(hostUnits[i]->name);
         }
@@ -25,7 +25,7 @@ UnitFrame::UnitFrame(QWidget *parent, bool comm) :
     else
     {
         std::vector<Unit*> commUnits;
-        for(int i = 0; i < ERAINN_COUNT; i++)
+        for(int i = 0; i < hostUnits.size(); i++)
         {
             if(hostUnits[i]->minSize == hostUnits[i]->maxSize && hostUnits[i]->maxSize == 1 && hostUnits[i]->auth > 50)
             {
@@ -148,6 +148,7 @@ void UnitFrame::onUnitSelectChanged()
         }
         else
         {
+            locUnit = NULL;
             blankFields();
         }
     }

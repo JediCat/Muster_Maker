@@ -35,6 +35,7 @@ private slots:
     void onBattleSizeChange();
     void updateHost();
     void refreshInvocations(QString prefix, bool remove, int unitIndex);
+    void newHost();
 };
 
 #endif // MAINWINDOW_H

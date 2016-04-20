@@ -20,6 +20,7 @@
 #include "ubiquity.h"
 #include "invocation.h"
 #include "unitinvocframe.h"
+#include "newmusterdialog.h"
 
 
 QVector<int> unitsPerTab;
@@ -27,6 +28,7 @@ QVector<int> unitsPerTab;
 DbManager db;
 std::vector<Unit*> hostUnits;
 std::vector<invocation> invocList;
+QVector<QString> realmList;
 int numInvoc = 0;
 int commCount = 49;
 
@@ -34,54 +36,14 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    QString pwd(QCoreApplication::applicationDirPath());
-    pwd.replace("/","\\");
-    db = DbManager(pwd + ERAINN);
-
     //Qt Setup
     ui->setupUi(this);
 
-    //Populate Unit List
-    db.fetchUnits();
+    ui->tabWidget->hide();
 
-    //Populate Invocation List
-    db.fetchInvocations();
+    ui->hostDetails_widget->hide();
 
-    //Connections
-    connect(ui->actionAdd_Command, SIGNAL(triggered(bool)), this, SLOT(addCommand()));
-    connect(ui->actionRemove_Command, SIGNAL(triggered(bool)), this, SLOT(removeCommand()));
-    connect(ui->batSizeSlct, SIGNAL(currentIndexChanged(QString)), this, SLOT(onBattleSizeChange()));
-
-    //Initialize First Commands
-    CommWidget* hostComm = new CommWidget(true);
-    ui->tabWidget->insertTab(commCount-49, hostComm, "Host Command");
-    CommWidget* commOne = new CommWidget(false, QString(QChar(commCount)));
-    ui->tabWidget->insertTab(commCount-48, commOne, "Command " + QString(QChar(commCount)));
-    commCount++;
-
-    //Initialize Invocation List
-    setInvocList();
-
-    //Connect Initial Commands
-    connect(hostComm, SIGNAL(refresh()), this, SLOT(updateHost()), Qt::QueuedConnection);
-    connect(commOne, SIGNAL(refresh()), this, SLOT(updateHost()), Qt::QueuedConnection);
-    connect(hostComm, SIGNAL(invocChange(QString,bool,int)), this, SLOT(refreshInvocations(QString,bool,int)));
-    connect(commOne, SIGNAL(invocChange(QString,bool,int)), this, SLOT(refreshInvocations(QString,bool,int)));
-
-    //Populate Battle Sizes
-    ui->batSizeSlct->addItem("");
-    ui->batSizeSlct->addItem(BATTLESIZE[0].name);
-    ui->batSizeSlct->addItem(BATTLESIZE[1].name);
-    ui->batSizeSlct->addItem(BATTLESIZE[2].name);
-    ui->batSizeSlct->addItem(BATTLESIZE[3].name);
-    ui->batSizeSlct->addItem(BATTLESIZE[4].name);
-
-    //Fix Invoc List layout alignment
-    ui->invocUnitList->setAlignment(Qt::AlignTop);
-
-    //Set view to first tab
-    ui->tabWidget->setCurrentIndex(0);
-
+    connect(ui->actionNew_Host, SIGNAL(triggered(bool)), this, SLOT(newHost()));
 }
 
 MainWindow::~MainWindow()
@@ -245,10 +207,11 @@ void MainWindow::updateHost()
             }
 
             //If a unit has been selected, update the host
-            if(unitName->currentText() != "")
+            if(unitName->currentText() != "" && unitName->currentText() != "General")
             {
                 //Pointer to the size of the unit
                 QSpinBox* sizePoint = currUnitFrame->findChild<QSpinBox*>(prefix + "size");
+
                 //Pointer to the actual unit, not the just the Frame
                 Unit* currUnit = findUnit(unitName->currentText());
 
@@ -459,4 +422,67 @@ QString MainWindow::numToString(int num)
     }
 
     return QString::number(-1);
+}
+
+void MainWindow::newHost()
+{
+    NewMusterDialog* selectKin = new NewMusterDialog;
+    selectKin->show();
+
+    QEventLoop loop;
+    connect(selectKin, SIGNAL(finished(int)), &loop, SLOT(quit()));\
+    loop.exec();
+
+    if(selectKin->result() != QDialog::Rejected)
+    {
+        ui->tabWidget->show();
+
+        ui->hostDetails_widget->show();
+
+        //Populate Unit List
+        db.fetchUnits(selectKin->getRealmID());
+
+        //Delete the New Kindred Dialog
+        delete selectKin;
+
+        //Populate Invocation List
+        db.fetchInvocations();
+
+        //Connections
+        connect(ui->actionAdd_Command, SIGNAL(triggered(bool)), this, SLOT(addCommand()));
+        connect(ui->actionRemove_Command, SIGNAL(triggered(bool)), this, SLOT(removeCommand()));
+        connect(ui->batSizeSlct, SIGNAL(currentIndexChanged(QString)), this, SLOT(onBattleSizeChange()));
+
+        //Initialize First Commands
+        CommWidget* hostComm = new CommWidget(true);
+        ui->tabWidget->insertTab(commCount-49, hostComm, "Host Command");
+        CommWidget* commOne = new CommWidget(false, QString(QChar(commCount)));
+        ui->tabWidget->insertTab(commCount-48, commOne, "Command " + QString(QChar(commCount)));
+        commCount++;
+
+        //Initialize Invocation List
+        setInvocList();
+
+        //Connect Initial Commands
+        connect(hostComm, SIGNAL(refresh()), this, SLOT(updateHost()), Qt::QueuedConnection);
+        connect(commOne, SIGNAL(refresh()), this, SLOT(updateHost()), Qt::QueuedConnection);
+        connect(hostComm, SIGNAL(invocChange(QString,bool,int)), this, SLOT(refreshInvocations(QString,bool,int)));
+        connect(commOne, SIGNAL(invocChange(QString,bool,int)), this, SLOT(refreshInvocations(QString,bool,int)));
+
+        //Populate Battle Sizes
+        ui->batSizeSlct->addItem("");
+        ui->batSizeSlct->addItem(BATTLESIZE[0].name);
+        ui->batSizeSlct->addItem(BATTLESIZE[1].name);
+        ui->batSizeSlct->addItem(BATTLESIZE[2].name);
+        ui->batSizeSlct->addItem(BATTLESIZE[3].name);
+        ui->batSizeSlct->addItem(BATTLESIZE[4].name);
+
+        //Fix Invoc List layout alignment
+        ui->invocUnitList->setAlignment(Qt::AlignTop);
+
+        //Set view to first tab
+        ui->tabWidget->setCurrentIndex(0);
+
+        ui->actionNew_Host->setEnabled(false);
+    }
 }

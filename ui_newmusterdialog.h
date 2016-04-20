@@ -85,22 +85,6 @@ public:
         NewMusterDialog->setWindowTitle(QApplication::translate("NewMusterDialog", "Dialog", 0));
         kinLabel->setText(QApplication::translate("NewMusterDialog", "Select Kindred:", 0));
         reaLabel->setText(QApplication::translate("NewMusterDialog", "Select Realm:", 0));
-        selectKindred->clear();
-        selectKindred->insertItems(0, QStringList()
-         << QApplication::translate("NewMusterDialog", "Albainn", 0)
-         << QApplication::translate("NewMusterDialog", "Anglecynn", 0)
-         << QApplication::translate("NewMusterDialog", "Atalantes", 0)
-         << QApplication::translate("NewMusterDialog", "Brythoniad", 0)
-         << QApplication::translate("NewMusterDialog", "Byzantii", 0)
-         << QApplication::translate("NewMusterDialog", "Erainn", 0)
-         << QApplication::translate("NewMusterDialog", "Formoraic", 0)
-         << QApplication::translate("NewMusterDialog", "Infernii", 0)
-         << QApplication::translate("NewMusterDialog", "Jutes", 0)
-         << QApplication::translate("NewMusterDialog", "Khthones", 0)
-         << QApplication::translate("NewMusterDialog", "Norse", 0)
-         << QApplication::translate("NewMusterDialog", "Vras", 0)
-         << QApplication::translate("NewMusterDialog", "Ysian", 0)
-        );
     } // retranslateUi
 
 };

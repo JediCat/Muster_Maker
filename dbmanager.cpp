@@ -3,6 +3,7 @@
 #include "ubiquity.h"
 #include "constants.h"
 #include "unit.h"
+#include "newmusterdialog.h"
 
 DbManager::DbManager()
 {
@@ -25,109 +26,141 @@ DbManager::DbManager(const QString &path)
 
 }
 
-void DbManager::fetchUnits()
+void DbManager::fetchUnits(int realmID)
 {
-    QSqlQuery query("SELECT unitID FROM units");
+    int curr = 0;
+    int numUnits;
+    QSqlQuery query;
+    std::vector<int> unitID;
+    query.prepare("SELECT unitID FROM units WHERE realmID = (:realmID)");
+    query.bindValue(":realmID", realmID);
     if(query.exec())
     {
-
+        while(query.next())
+        {
+            unitID.insert(unitID.end(), query.value(0).toInt());
+            curr++;
+        }
+        numUnits = unitID.size();
+        curr = 0;
     }
-    else
-    {
-        qDebug() <<  m_db.lastError();
-    }
-
-    int numUnits;
-    std::vector<int> unitID;
-    int curr = 0;
-    while(query.next())
-    {
-        unitID.insert(unitID.end(), query.value(0).toInt());
-        curr++;
-    }
-    numUnits = unitID.size();
-    curr = 0;
 
     QString* name = new QString[numUnits];
-    query = QSqlQuery("SELECT name FROM units");
-    while(query.next())
+    query.prepare("SELECT name FROM units WHERE realmID = (:realmID)");
+    query.bindValue(":realmID", realmID);
+    if(query.exec())
     {
-        name[curr] = query.value(0).toString();
-        curr++;
+        while(query.next())
+        {
+            name[curr] = query.value(0).toString();
+            curr++;
+        }
+        curr = 0;
     }
-    curr = 0;
 
     bool* comm = new bool[numUnits];
-    query = QSqlQuery("SELECT comm FROM units");
-    while(query.next())
+    query.prepare("SELECT comm FROM units WHERE realmID = (:realmID)");
+    query.bindValue(":realmID", realmID);
+    if(query.exec())
     {
-        comm[curr] = query.value(0).toBool();
-        curr++;
+        while(query.next())
+        {
+            comm[curr] = query.value(0).toBool();
+            curr++;
+        }
+        curr = 0;
     }
-    curr = 0;
 
     int* costPer = new int[numUnits];
-    query = QSqlQuery("SELECT costPer FROM units");
-    while(query.next())
+    query.prepare("SELECT costPer FROM units WHERE realmID = (:realmID)");
+    query.bindValue(":realmID", realmID);
+    if(query.exec())
     {
-        costPer[curr] = query.value(0).toInt();
-        curr++;
+        while(query.next())
+        {
+            costPer[curr] = query.value(0).toInt();
+            curr++;
+        }
+        curr = 0;
     }
-    curr = 0;
 
     int* minSize = new int[numUnits];
-    query = QSqlQuery("SELECT minSize FROM units");
-    while(query.next())
+    query.prepare("SELECT minSize FROM units WHERE realmID = (:realmID)");
+    query.bindValue(":realmID", realmID);
+    if(query.exec())
     {
-        minSize[curr] = query.value(0).toInt();
-        curr++;
+        while(query.next())
+        {
+            minSize[curr] = query.value(0).toInt();
+            curr++;
+        }
+        curr = 0;
     }
-    curr = 0;
 
     int* maxSize = new int[numUnits];
-    query = QSqlQuery("SELECT maxSize FROM units");
-    while(query.next())
+    query.prepare("SELECT maxSize FROM units WHERE realmID = (:realmID)");
+    query.bindValue(":realmID", realmID);
+    if(query.exec())
     {
-        maxSize[curr] = query.value(0).toInt();
-        curr++;
+        while(query.next())
+        {
+            maxSize[curr] = query.value(0).toInt();
+            curr++;
+        }
+        curr = 0;
     }
-    curr = 0;
 
     int* invocSlots = new int[numUnits];
-    query = QSqlQuery("SELECT invocSlots FROM units");
-    while(query.next())
+    query.prepare("SELECT invocSlots FROM units WHERE realmID = (:realmID)");
+    query.bindValue(":realmID", realmID);
+    if(query.exec())
     {
-        invocSlots[curr] = query.value(0).toInt();
-        curr++;
+        while(query.next())
+        {
+            invocSlots[curr] = query.value(0).toInt();
+            curr++;
+        }
+        curr = 0;
     }
-    curr = 0;
 
     int* ubiID = new int[numUnits];
-    query = QSqlQuery("SELECT ubiID FROM units");
-    while(query.next())
+    query.prepare("SELECT ubiID FROM units WHERE realmID = (:realmID)");
+    query.bindValue(":realmID", realmID);
+    if(query.exec())
     {
-        ubiID[curr] = query.value(0).toInt();
-        curr++;
+        while(query.next())
+        {
+            ubiID[curr] = query.value(0).toInt();
+            curr++;
+        }
+        curr = 0;
     }
-    curr = 0;
 
     bool* gen = new bool[numUnits];
-    query = QSqlQuery("SELECT gen FROM units");
-    while(query.next())
+    query.prepare("SELECT gen FROM units WHERE realmID = (:realmID)");
+    query.bindValue(":realmID", realmID);
+    if(query.exec())
     {
-        gen[curr] = query.value(0).toBool();
-        curr++;
+        while(query.next())
+        {
+            gen[curr] = query.value(0).toBool();
+            curr++;
+        }
+        curr = 0;
     }
-    curr = 0;
 
     int* auth = new int[numUnits];
-    query = QSqlQuery("SELECT auth FROM units");
-    while(query.next())
+    query.prepare("SELECT auth FROM units WHERE realmID = (:realmID)");
+    query.bindValue(":realmID", realmID);
+    if(query.exec())
     {
-        auth[curr] = query.value(0).toInt();
-        curr++;
+        while(query.next())
+        {
+            auth[curr] = query.value(0).toInt();
+            curr++;
+        }
+        curr = 0;
     }
-    curr = 0;
 
     Ubiquity** ubi = new Ubiquity*[numUnits];
     for(curr = 0; curr < numUnits; curr++)
@@ -350,4 +383,22 @@ void DbManager::fetchInvocations()
             i++;
         }
     }
+}
+
+void DbManager::fetchRealms()
+{
+    QSqlQuery query;
+    query.prepare("SELECT name FROM realms");
+    if(query.exec())
+    {
+        while(query.next())
+        {
+            realmList.insert(realmList.end(), query.value(0).toString());
+        }
+    }
+}
+
+void DbManager::close()
+{
+    m_db.close();
 }
