@@ -47,7 +47,7 @@ void NewMusterDialog::onKindredSelectChange()
 
 void NewMusterDialog::populateRealms()
 {
-    if(kindredIndex != -1 && kindredIndex == 5)
+    if(kindredIndex != -1 && (kindredIndex == 5 || kindredIndex == 0))
     {
         int j = ui->selectRealm->count() - 1;
         for(int i = j; i > -1; i--)
